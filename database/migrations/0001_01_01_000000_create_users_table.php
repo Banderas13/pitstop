@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('bday')->nullable();
             $table->string('vat')->nullable();
             $table->boolean('is_admin')->default(0);
+            $table->string('telephone');
             $table->rememberToken();
             $table->timestamps();
         });
