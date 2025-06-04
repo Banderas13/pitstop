@@ -45,4 +45,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function mechanics()
+    {
+        return $this->belongsToMany(Mechanic::class, 'mechanic_user');
+    }
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
+
+    public function cases()
+    {
+        return $this->hasMany(CaseModel::class);
+    }
 }
