@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Middleware\IsAdmin;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
+
 
 Route::get('/', [DashboardController::class, 'index']);
 
