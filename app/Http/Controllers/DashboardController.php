@@ -13,13 +13,15 @@ class DashboardController extends Controller
         if($user != null){
             $cars = $user->cars;
             $cases = $user->cases;
+            $mechanics = $user->mechanics;
         }
         else{
             $cars = [];
             $cases = [];
+            $mechanics = [];
         }
         
 
-        return view('home', compact('cars'), compact('cases'));
+        return view('home', compact('cars', 'cases', 'mechanics'));
     }
 }

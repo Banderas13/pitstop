@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function mechanics()
     {
-        return $this->belongsToMany(Mechanic::class, 'mechanic_user');
+        return $this->belongsToMany(Mechanic::class, 'user_mechanic');
     }
 
     public function cars()

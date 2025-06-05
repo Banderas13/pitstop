@@ -20,9 +20,11 @@
                         @endif
                     </ul>
                 </div>
+                <a href="/">
+                    <button>naar Cases</button>
+                </a>
             </div>
             <hr class="w-25 mx-auto my-5">
-
             <div>
                 <h2>Jouw wagens</h2>
                 <div class="w-25 mx-auto my-5">
@@ -36,10 +38,27 @@
                         @endif
                     </ul>
                 </div>
+                <a href="/">
+                    <button>naar Wagens</button>
+                </a>
             </div>
             <hr class="w-25 mx-auto my-5">
             <div>
                 <h2>Jouw Mechaniekers</h2>
+                <div class="w-25 mx-auto my-5">
+                    <ul>
+                        @if ($mechanics->isEmpty())
+                            <li>Geen Mechaniekers gevonden!</li>
+                        @else
+                            @foreach($mechanics as $mechanic)
+                                <li>{{ $mechanic->name }} - {{ $mechanic->company_name }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <a href="/">
+                    <button>naar Mechaniekers</button>
+                </a>
             </div>
         </div>
     @else
