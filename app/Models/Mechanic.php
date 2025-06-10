@@ -12,7 +12,8 @@ class Mechanic extends Model
     ];
     public function users()
     {
-        return $this->belongsToMany(User::class, 'mechanic_user');
+        return $this->belongsToMany(User::class, 'mechanic_user', 'mechanic_id', 'user_id')
+                ->withTimestamps();
     }
 
     public function cases()
