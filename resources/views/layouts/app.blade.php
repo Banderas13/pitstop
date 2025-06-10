@@ -22,7 +22,7 @@
                     </li>
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Wagens</a>
+                            <a class="nav-link active" href="{{ route('cars.index') }}">Wagens</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/">Mechaniekers</a>
