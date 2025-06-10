@@ -17,20 +17,15 @@
                         <!-- Merk zoeken -->
                         <div class="mb-3">
                             <label for="brand_search" class="form-label">Merk <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="text" class="form-control @error('brand_name') is-invalid @enderror" 
-                                       id="brand_search" placeholder="Zoek naar een automerk...">
-                                <button class="btn btn-outline-secondary" type="button" id="search_api_btn" title="Zoek in API">
-                                    <i class="fas fa-search"></i> API
-                                </button>
-                            </div>
+                            <input type="text" class="form-control @error('brand_name') is-invalid @enderror" 
+                                   id="brand_search" placeholder="Zoek naar een automerk...">
                             <input type="hidden" name="brand_name" id="brand_name" value="{{ old('brand_name') }}">
                             <div id="brand_results" class="list-group mt-1" style="display: none;"></div>
                             <div id="search_info" class="form-text text-muted mt-1"></div>
                             @error('brand_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text">Begin te typen om merken te zoeken. Druk Enter of klik API voor externe zoekactie.</div>
+                            <div class="form-text">Begin te typen om merken te zoeken.</div>
                         </div>
 
                         <!-- Model selecteren -->
@@ -124,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const typeSelect = document.getElementById('type_select');
     const modelInfo = document.getElementById('model_info');
     const submitBtn = document.getElementById('submitBtn');
-    const searchApiBtn = document.getElementById('search_api_btn');
     const searchInfo = document.getElementById('search_info');
 
     let searchTimeout;
@@ -150,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show loading state
         searchInfo.textContent = forceApi ? 'Zoeken via API...' : 'Zoeken...';
-        searchApiBtn.disabled = true;
 
         const url = `/search-brands?q=${encodeURIComponent(query)}${forceApi ? '&force_api=true' : ''}`;
         
@@ -158,14 +151,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 brandResults.innerHTML = '';
-                searchApiBtn.disabled = false;
                 
-                // Show search info
-                let infoText = `Gevonden: ${data.total_count} (${data.local_count} lokaal`;
-                if (data.api_count > 0) {
-                    infoText += `, ${data.api_count} van API`;
-                }
-                infoText += ')';
+                // Show search info - simplified
+                let infoText = `Gevonden: ${data.total_count}`;
                 
                 if (data.api_error) {
                     infoText += ` - API fout: ${data.api_error}`;
@@ -196,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Error searching brands:', error);
                 brandResults.style.display = 'none';
-                searchApiBtn.disabled = false;
                 searchInfo.textContent = 'Fout bij zoeken. Probeer opnieuw.';
             });
     }
@@ -236,11 +223,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearTimeout(searchTimeout);
             searchBrands(true); // Force API search on Enter
         }
-    });
-
-    // API search button
-    searchApiBtn.addEventListener('click', function() {
-        searchBrands(true);
     });
 
     // Model selection
