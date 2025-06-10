@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
 
     steps:
       - name: Checkout code
@@ -20,71 +19,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
           
-      - name: Debug network connectivity
+      - name: Deploy to server
         run: |
-          echo "Testing DNS resolution..."
-          nslookup ssh.productionserver.be || echo "DNS resolution failed"
-          
-          echo "Testing ping connectivity..."
-          ping -c 4 ssh.productionserver.be || echo "Ping failed"
-          
-          echo "Testing SSH port connectivity..."
-          nc -zv ssh.productionserver.be 22 || echo "SSH port test failed"
-          
-          echo "Testing SSH key authentication..."
-          ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o BatchMode=yes productionserverbe@ssh.productionserver.be "echo 'SSH connection successful'" || echo "SSH authentication failed"
-          
-      - name: Deploy to server with retry
-        run: |
-          # Function to retry commands
-          retry() {
-            local retries=3
-            local delay=10
-            local command="$@"
-            
-            for ((i=1; i<=retries; i++)); do
-              echo "Attempt $i of $retries..."
-              if eval $command; then
-                echo "Command succeeded on attempt $i"
-                return 0
-              else
-                echo "Command failed on attempt $i"
-                if [ $i -lt $retries ]; then
-                  echo "Waiting $delay seconds before retry..."
-                  sleep $delay
-                fi
-              fi
-            done
-            
-            echo "Command failed after $retries attempts"
-            return 1
-          }
-          
-          # Deploy with retry logic
-          retry 'rsync -e "ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o ServerAliveInterval=60" -avz --exclude '.git/' \
+          rsync -e "ssh -o StrictHostKeyChecking=no" -avz --exclude '.git/' \
                      --exclude '.github/' \
                      --exclude 'node_modules/' \
                      --exclude '.env' \
                      --exclude '.env.example' \
-                     ./ productionserverbe@ssh.productionserver.be:subsites/pitstop.be'
-          
-      - name: Alternative deployment via SCP (if rsync fails)
-        if: failure()
-        run: |
-          echo "Rsync failed, trying alternative deployment method..."
-          
-          # Create a temporary deployment package
-          tar --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='.env' --exclude='.env.example' -czf deployment.tar.gz .
-          
-          # Transfer via SCP
-          scp -o StrictHostKeyChecking=no -o ConnectTimeout=30 deployment.tar.gz productionserverbe@ssh.productionserver.be:subsites/
-          
-          # Extract on server
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 productionserverbe@ssh.productionserver.be "cd subsites && tar -xzf deployment.tar.gz -C pitstop.be --strip-components=0"
-          
-          # Cleanup
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 productionserverbe@ssh.productionserver.be "rm subsites/deployment.tar.gz"
+                     ./ productionserverbe@ssh.productionserver.be:subsites/pitstop.be
           
       - name: Post-deployment commands
         run: |
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o ServerAliveInterval=60 productionserverbe@ssh.productionserver.be "cd subsites/pitstop.be && bash post-deploy.sh"
+          ssh -o StrictHostKeyChecking=no productionserverbe@ssh.productionserver.be "cd subsites/pitstop.be && bash post-deploy.sh"
