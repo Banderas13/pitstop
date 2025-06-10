@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Auth;
 class RegisterController extends Controller
 {
     /**
@@ -42,9 +42,7 @@ class RegisterController extends Controller
         return back()->withErrors(['role' => 'Please select a valid role.']);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     */
+
     protected function validator(array $data)
     {
         $rules = [
@@ -100,30 +98,10 @@ class RegisterController extends Controller
             'vat' => $request->vat,
         ]);
 
-        // Create cars if provided
-        if ($request->has('cars')) {
-            foreach ($request->cars as $carData) {
-                if (!empty($carData['brand_id']) && !empty($carData['type_id'])) {
-                    Car::create([
-                        'user_id' => $user->id,
-                        'brand_id' => $carData['brand_id'], // Add this line
-                        'type_id' => $carData['type_id'],
-                        'year' => $carData['year'] ?? null,
-                        'chasis_number' => $carData['chasis_number'] ?? null,
-                        'numberplate' => $carData['numberplate'] ?? null,
-                        'fuel' => $carData['fuel'] ?? null,
-                    ]);
-                }
-            }
-        }
+        // Log the user in
+        auth()->login($user);
 
-        // Log the user in and verify
-        if (auth()->login($user)) {
-            return redirect()->intended('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd.');
-        }
-
-        // If login fails, redirect to login page
-        return redirect()->route('login')->with('error', 'Account aangemaakt maar automatisch inloggen mislukt. Probeer handmatig in te loggen.');
+        return redirect('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd als gebruiker.');
     }
 
     /**
@@ -141,9 +119,8 @@ class RegisterController extends Controller
             'telephone' => $request->telephone,
         ]);
 
-        // Log the mechanic in using the mechanic guard
-        auth('mechanic')->login($mechanic);
+        auth()->login($mechanic);
 
-        return redirect()->intended('/login')->with('success', 'Monteur account succesvol aangemaakt! Log in om door te gaan.');
+        return redirect('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd als monteur.');
     }
 }

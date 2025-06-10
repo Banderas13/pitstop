@@ -4,6 +4,13 @@
 @section('title', 'Registreren')
 
 @section('content')
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="container">
     <div class="text-center py-3">
         <h1 class="h2 fw-bold mb-2">Registreren bij Pitstop</h1>
@@ -92,7 +99,8 @@
                                 <label class="form-label">Geboortedatum</label>
                                 <input type="date" class="form-control @error('bday') is-invalid @enderror" name="bday" value="{{ old('bday') }}"
                                 min="{{ date('Y-m-d', strtotime('-100 years')) }}" 
-                                max="{{ date('Y-m-d') }}">
+                                max="{{ date('Y-m-d', strtotime('-18 years')) }}">
+                                <small class="form-text text-muted">Je moet minstens 18 jaar oud zijn.</small>
                                 @error('bday')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -100,88 +108,16 @@
 
                             <div class="mb-3">
                                 <label class="form-label">BTW Nummer (optioneel)</label>
-                                <input type="text" class="form-control @error('vat') is-invalid @enderror" name="vat" placeholder="BE0123456789" value="{{ old('vat') }}">
+                                <input type="text" 
+                                    class="form-control vat-input @error('vat') is-invalid @enderror" 
+                                    name="vat" 
+                                    id="userVatInput"
+                                    placeholder="BE 0123.456.789" 
+                                    value="{{ old('vat') }}">
                                 @error('vat')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <h6 class="mb-2">Jouw voertuigen</h6>
-                            <div id="cars">
-                                <div class="car mb-2">
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <label class="form-label">Merk</label>
-                                            <select class="form-select form-select-sm @error('cars.0.brand_id') is-invalid @enderror" name="cars[0][brand_id]" onchange="loadTypes(this, 0)">
-                                                <option value="">Selecteer merk</option>
-                                                @if(isset($brands))
-                                                    @foreach($brands as $brand)
-                                                        <option value="{{ $brand->id }}" {{ old('cars.0.brand_id') == $brand->id ? 'selected' : '' }}>
-                                                            {{ $brand->name }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            @error('cars.0.brand_id')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="form-label">Type</label>
-                                            <select class="form-select form-select-sm @error('cars.0.type_id') is-invalid @enderror" name="cars[0][type_id]">
-                                                <option value="">Selecteer eerst een merk</option>
-                                            </select>
-                                            @error('cars.0.type_id')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mt-1">
-                                        <div class="col-4">
-                                            <label class="form-label">Jaar</label> 
-                                            <input type="number" class="form-control form-control-sm @error('cars.0.year') is-invalid @enderror" name="cars[0][year]" placeholder="2020" min="1900" max="{{ date('Y') }}" value="{{ old('cars.0.year') }}">
-                                            @error('cars.0.year')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-4">
-                                            <label class="form-label">Chassis (optioneel)</label>
-                                            <input type="text" class="form-control form-control-sm @error('cars.0.chasis_number') is-invalid @enderror" name="cars[0][chasis_number]" placeholder="WBA12345..." maxlength="17" value="{{ old('cars.0.chasis_number') }}">
-                                            @error('cars.0.chasis_number')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-4">
-                                            <label class="form-label">Nummerplaat</label>
-                                            <input type="text" class="form-control form-control-sm @error('cars.0.numberplate') is-invalid @enderror" name="cars[0][numberplate]" placeholder="1-ABC-123" value="{{ old('cars.0.numberplate') }}">
-                                            @error('cars.0.numberplate')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mt-1">
-                                        <div class="col-12">
-                                            <label class="form-label">Brandstof</label>
-                                            <select class="form-select form-select-sm @error('cars.0.fuel') is-invalid @enderror" name="cars[0][fuel]">
-                                                <option value="">Selecteer brandstof</option>
-                                                <option value="gasoline" {{ old('cars.0.fuel') == 'gasoline' ? 'selected' : '' }}>Benzine</option>
-                                                <option value="diesel" {{ old('cars.0.fuel') == 'diesel' ? 'selected' : '' }}>Diesel</option>
-                                                <option value="electric" {{ old('cars.0.fuel') == 'electric' ? 'selected' : '' }}>Elektrisch</option>
-                                                <option value="hybrid/diesel" {{ old('cars.0.fuel') == 'hybrid/diesel' ? 'selected' : '' }}>Hybrid/Diesel</option>
-                                                <option value="hybrid/gasoline" {{ old('cars.0.fuel') == 'hybrid/gasoline' ? 'selected' : '' }}>Hybrid/Benzine</option>
-                                                <option value="lpg" {{ old('cars.0.fuel') == 'lpg' ? 'selected' : '' }}>LPG</option>
-                                                <option value="hydrogen" {{ old('cars.0.fuel') == 'hydrogen' ? 'selected' : '' }}>Waterstof</option>
-                                            </select>
-                                            @error('cars.0.fuel')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="addCar()">
-                                + Voeg nog een auto toe
-                            </button>
                         </div>
 
                         <!-- Mechanic Specific Fields -->
@@ -191,7 +127,7 @@
                             
                             <div class="mb-3">
                                 <label class="form-label">Bedrijfsnaam</label>
-                                <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" placeholder="Garage De Smet" value="{{ old('company_name') }}">
+                                <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" placeholder="Garage De Smet" value="{{ old('company_name') }}" data-required="true">
                                 @error('company_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -199,7 +135,13 @@
 
                             <div class="mb-3">
                                 <label class="form-label">BTW Nummer</label>
-                                <input type="text" class="form-control @error('vat') is-invalid @enderror" name="vat" placeholder="BE0123456789" value="{{ old('vat') }}" required>
+                                <input type="text" 
+                                    class="form-control vat-input @error('vat') is-invalid @enderror" 
+                                    name="vat" 
+                                    id="mechanicVatInput"
+                                    placeholder="BE 0123.456.789" 
+                                    value="{{ old('vat') }}"
+                                    data-required="true">
                                 @error('vat')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -207,15 +149,21 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Adres</label>
-                                <textarea class="form-control @error('adress') is-invalid @enderror" name="adress" rows="3" placeholder="Straat 123&#10;2000 Antwerpen" required>{{ old('adress') }}</textarea>
+                                <textarea class="form-control @error('adress') is-invalid @enderror" name="adress" rows="3" placeholder="Straat 123&#10;2000 Antwerpen" data-required="true">{{ old('adress') }}</textarea>
                                 @error('adress')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Telefoon</label>
-                                <input type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone" placeholder="+32 123 45 67 89" value="{{ old('telephone') }}" required>
+                                <label class="form-label">Telefoon <span class="text-danger">*</span></label>
+                                <input type="tel" 
+                                    class="form-control @error('telephone') is-invalid @enderror" 
+                                    name="telephone" 
+                                    id="phoneInput"
+                                    placeholder="+32 123 45 67 89" 
+                                    value="{{ old('telephone') }}"
+                                    oninput="formatPhoneNumber(this)">
                                 @error('telephone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -242,23 +190,16 @@
 </div>
 
 <script>
-// Store types data for dynamic loading
-let typesData = @json($types ?? []);
-
 function showForm(role) {
-    // Verberg beide secties eerst
     document.getElementById('user-fields').style.display = 'none';
     document.getElementById('mechanic-fields').style.display = 'none';
-    
-    // Toon de juiste sectie
+
     if (role === 'user') {
         document.getElementById('user-fields').style.display = 'block';
-        // Maak user velden required
         setFieldsRequired('user-fields', true);
         setFieldsRequired('mechanic-fields', false);
     } else if (role === 'mechanic') {
         document.getElementById('mechanic-fields').style.display = 'block';
-        // Maak mechanic velden required
         setFieldsRequired('mechanic-fields', true);
         setFieldsRequired('user-fields', false);
     }
@@ -266,8 +207,8 @@ function showForm(role) {
 
 function setFieldsRequired(containerId, required) {
     const container = document.getElementById(containerId);
-    const requiredInputs = container.querySelectorAll('input[data-required="true"], select[data-required="true"], textarea[data-required="true"]');
-    requiredInputs.forEach(input => {
+    const fields = container.querySelectorAll('[data-required="true"]');
+    fields.forEach(input => {
         if (required) {
             input.setAttribute('required', 'required');
         } else {
@@ -276,123 +217,72 @@ function setFieldsRequired(containerId, required) {
     });
 }
 
-function loadTypes(brandSelect, index) {
-    const brandId = brandSelect.value;
-    const typeSelect = document.querySelector(`select[name="cars[${index}][type_id]"]`);
-    
-    // Clear existing options
-    typeSelect.innerHTML = '<option value="">Selecteer type</option>';
-    
-    if (brandId && typesData) {
-        const filteredTypes = typesData.filter(type => type.brand_id == brandId);
-        filteredTypes.forEach(type => {
-            const option = document.createElement('option');
-            option.value = type.id;
-            option.textContent = type.name;
-            typeSelect.appendChild(option);
-        });
-    }
-}
-
-function addCar() {
-    const cars = document.getElementById('cars');
-    const index = cars.children.length;
-    const div = document.createElement('div');
-    div.classList.add('car', 'mb-2');
-    
-    const brandsOptions = @json(isset($brands) ? $brands->map(fn($brand) => ['id' => $brand->id, 'name' => $brand->name]) : []);
-    let brandsHtml = '<option value="">Selecteer merk</option>';
-    brandsOptions.forEach(brand => {
-        brandsHtml += `<option value="${brand.id}">${brand.name}</option>`;
-    });
-    
-    div.innerHTML = `
-        <hr class="my-2">
-        <div class="row g-2">
-            <div class="col-6">
-                <label class="form-label">Merk</label>
-                <select class="form-select form-select-sm" name="cars[${index}][brand_id]" onchange="loadTypes(this, ${index})">
-                    ${brandsHtml}
-                </select>
-            </div>
-            <div class="col-6">
-                <label class="form-label">Type</label>
-                <select class="form-select form-select-sm" name="cars[${index}][type_id]">
-                    <option value="">Selecteer eerst een merk</option>
-                </select>
-            </div>
-        </div>
-        <div class="row g-2 mt-1">
-            <div class="col-4">
-                <label class="form-label">Jaar</label>
-                <input type="number" class="form-control form-control-sm" name="cars[${index}][year]" placeholder="2020" min="1900" max="{{ date('Y') }}">
-            </div>
-            <div class="col-4">
-                <label class="form-label">Chassis (optioneel)</label>
-                <input type="text" class="form-control form-control-sm" name="cars[${index}][chasis_number]" placeholder="WBA12345..." maxlength="17">
-            </div>
-            <div class="col-4">
-                <label class="form-label">Nummerplaat</label>
-                <input type="text" class="form-control form-control-sm" name="cars[${index}][numberplate]" placeholder="1-ABC-123">
-            </div>
-        </div>
-        <div class="row g-2 mt-1">
-            <div class="col-8">
-                <label class="form-label">Brandstof</label>
-                <select class="form-select form-select-sm" name="cars[${index}][fuel]">
-                    <option value="">Selecteer brandstof</option>
-                    <option value="gasoline">Benzine</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="electric">Elektrisch</option>
-                    <option value="hybrid/diesel">Hybrid/Diesel</option>
-                    <option value="hybrid/gasoline">Hybrid/Benzine</option>
-                    <option value="lpg">LPG</option>
-                    <option value="hydrogen">Waterstof</option>
-                </select>
-            </div>
-            <div class="col-4 d-flex align-items-end">
-                <button type="button" class="btn btn-outline-danger btn-sm w-100" onclick="removeCar(this)">
-                    Verwijder
-                </button>
-            </div>
-        </div>
-    `;
-    cars.appendChild(div);
-}
-
-function removeCar(button) {
-    button.closest('.car').remove();
-    // Herindex de overgebleven auto's
-    reindexCars();
-}
-
-function reindexCars() {
-    const cars = document.querySelectorAll('#cars .car');
-    cars.forEach((car, index) => {
-        // Update alle name attributes
-        const inputs = car.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            const name = input.getAttribute('name');
-            if (name && name.includes('cars[')) {
-                const newName = name.replace(/cars\[\d+\]/, `cars[${index}]`);
-                input.setAttribute('name', newName);
-            }
-        });
-        
-        // Update onchange handler for brand select
-        const brandSelect = car.querySelector('select[name*="brand_id"]');
-        if (brandSelect) {
-            brandSelect.setAttribute('onchange', `loadTypes(this, ${index})`);
-        }
-    });
-}
-
-// Initialiseer de form op basis van geselecteerde role bij page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const selectedRole = document.querySelector('input[name="role"]:checked');
     if (selectedRole) {
         showForm(selectedRole.value);
     }
 });
+
+// BTW formatting for alle vat inputs
+document.querySelectorAll('.vat-input').forEach(function(input) {
+    input.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^\dBE]/gi, '').toUpperCase();
+        
+        // Zorg dat "BE" aanwezig is (voeg toe als het ontbreekt)
+        if (!value.startsWith('BE')) {
+            value = 'BE' + value.replace(/BE/gi, '');
+        }
+        
+        // Neem alleen de cijfers na "BE"
+        const numbers = value.substring(2).replace(/\D/g, '');
+        
+        let formatted = numbers;
+
+        if (numbers.length > 3) {
+            formatted = numbers.substring(0, 4) + 
+                       (numbers.length > 4 ? '.' + numbers.substring(4, 7) : '') + 
+                       (numbers.length > 7 ? '.' + numbers.substring(7, 10) : '');
+        }
+        
+        e.target.value = 'BE ' + formatted;
+    });
+});
+
+
+function formatPhoneNumber(input) {
+    // Verwijder alles behalve cijfers en +
+    let value = input.value.replace(/[^\d+]/g, '');
+    
+    // Zorg dat +32 aanwezig is (voeg toe als het ontbreekt)
+    if (!value.startsWith('+32')) {
+        value = '+32' + value.replace(/^\+32/, '');
+    }
+    
+    // Neem alleen de cijfers na +32
+    const numbers = value.substring(3).replace(/\D/g, '');
+    
+    // Formatteer als +32 XXX XX XX XX
+    let formatted = '+32';
+    if (numbers.length > 0) {
+        formatted += ' ' + numbers.substring(0, 3);
+    }
+    if (numbers.length > 3) {
+        formatted += ' ' + numbers.substring(3, 5);
+    }
+    if (numbers.length > 5) {
+        formatted += ' ' + numbers.substring(5, 7);
+    }
+    if (numbers.length > 7) {
+        formatted += ' ' + numbers.substring(7, 9);
+    }
+    
+    // Update input value
+    input.value = formatted;
+    
+    // Sla op in hidden field zonder spaties
+    document.getElementById('phoneHidden').value = '+32' + numbers;
+}
+
 </script>
 @endsection
