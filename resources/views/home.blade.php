@@ -3,6 +3,13 @@
 @section('title', 'Startpagina')
 
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     @auth
         <div class="text-center py-5">
             <h1>Welkom, {{ Auth::user()->name }}</h1>
