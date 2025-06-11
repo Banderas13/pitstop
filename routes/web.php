@@ -12,7 +12,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 
-
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
