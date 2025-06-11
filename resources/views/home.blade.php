@@ -70,13 +70,17 @@
         </div>
     @elseif(@auth('mechanic'))
         <div class="text-center py-5">
-            <h1>Welkom, {{ auth('mechanic')->user()->name }}</h1>
+            <h1>Welkom,
+            @if(auth('mechanic')->user() != null)
+                {{ auth('mechanic')->user()->name }}
+            @endif
+            </h1>
             <hr class="w-25 mx-auto my-5">
             <div>
                 <h2>Open Cases</h2>
                 <div class="w-25 mx-auto my-5">
                     <ul>
-                        @if ($mechanicCases->isEmpty())
+                        @if (!$mechanicCases)
                             <li>Geen open Cases</li>
                             @foreach($mechanicCases as $case)
                                 @if($case->approval)
