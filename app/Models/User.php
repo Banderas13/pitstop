@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'bday',
         'password',
     ];
 
@@ -48,7 +49,8 @@ class User extends Authenticatable
 
     public function mechanics()
     {
-        return $this->belongsToMany(Mechanic::class, 'user_mechanic');
+        return $this->belongsToMany(Mechanic::class, 'mechanic_user', 'user_id', 'mechanic_id')
+            ->withTimestamps();
     }
 
     public function cars()
