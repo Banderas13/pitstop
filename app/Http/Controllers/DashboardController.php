@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Mechanic;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,10 +11,12 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $mechanic = Auth::guard('mechanic')->user();
+        
         if($user != null){
             $cars = $user->cars;
             $cases = $user->cases;
-            $mechanics = $user->mechanics;
+            // Instead of using the relationship, we'll get all mechanics
+            $mechanics = Mechanic::all();
             $mechanicCases = [];
         }
         elseif($mechanic != null){
@@ -30,7 +32,6 @@ class DashboardController extends Controller
             $mechanicCases = [];
         }
         
-
         return view('home', compact('cars', 'cases', 'mechanics', 'mechanicCases'));
     }
 }

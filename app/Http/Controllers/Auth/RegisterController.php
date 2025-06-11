@@ -119,7 +119,8 @@ class RegisterController extends Controller
             'telephone' => $request->telephone,
         ]);
 
-        auth()->login($mechanic);
+        Auth::guard('mechanic')->login($mechanic);
+        $request->session()->put('user_type', 'mechanic');
 
         return redirect('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd als monteur.');
     }

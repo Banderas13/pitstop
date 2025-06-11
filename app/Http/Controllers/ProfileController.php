@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use App\Models\User;
+use App\Models\Mechanic;
 
 class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth:web,mechanic']);
     }
 
     public function index()
     {
-        return view('profile');
+        if (Auth::guard('mechanic')->check()) {
+            $user = Auth::guard('mechanic')->user();
+        } else {
+            $user = Auth::guard('web')->user();
+        }
+        return view('profile', compact('user'));
     }
 
     public function updateName(Request $request)
@@ -24,11 +32,20 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $user = auth()->user();
+        if (Auth::guard('mechanic')->check()) {
+            $user = Auth::guard('mechanic')->user();
+            $request->validate([
+                'telephone' => ['required', 'string', 'max:20'],
+            ]);
+            $user->telephone = $request->telephone;
+        } else {
+            $user = Auth::guard('web')->user();
+        }
+
         $user->name = $request->name;
         $user->save();
 
-        return back()->with('success', 'Je naam is succesvol bijgewerkt.');
+        return back()->with('success', 'Je gegevens zijn succesvol bijgewerkt.');
     }
 
     public function updatePassword(Request $request)
@@ -38,7 +55,12 @@ class ProfileController extends Controller
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
-        $user = auth()->user();
+        if (Auth::guard('mechanic')->check()) {
+            $user = Auth::guard('mechanic')->user();
+        } else {
+            $user = Auth::guard('web')->user();
+        }
+
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -47,12 +69,19 @@ class ProfileController extends Controller
 
     public function updateEmail(Request $request)
     {
+        if (Auth::guard('mechanic')->check()) {
+            $user = Auth::guard('mechanic')->user();
+            $uniqueRule = 'unique:mechanics,email,' . $user->id;
+        } else {
+            $user = Auth::guard('web')->user();
+            $uniqueRule = 'unique:users,email,' . $user->id;
+        }
+
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
+            'email' => ['required', 'string', 'email', 'max:255', $uniqueRule],
             'current_password' => ['required', 'current_password'],
         ]);
 
-        $user = auth()->user();
         $user->email = $request->email;
         $user->save();
 
