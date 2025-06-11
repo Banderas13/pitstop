@@ -55,7 +55,7 @@ class Mechanic extends Authenticatable
      */
     public function cases()
     {
-        return $this->hasMany(Cases::class);
+        return $this->hasMany(CaseModel::class);
     }
 
     /**

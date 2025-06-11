@@ -11,88 +11,86 @@
     @endif
 
     @auth
-        @if(Auth::user()->name != null)
-            <div class="text-center py-5">
-                <h1>Welkom, {{ Auth::user()->name }}</h1>
-                <hr class="w-25 mx-auto my-5">
-                <div>
-                    <h2>Jouw cases</h2>
-                    <div class="w-25 mx-auto my-5">
-                        <ul>
-                            @if ($cases->isEmpty())
-                                <li>Geen cases gevonden!</li>
-                            @else
-                                @foreach($cases as $case)
-                                    <li>{{ $case->description }} - {{ $case->approved }}</li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <a href="/">
-                        <button>naar Cases</button>
-                    </a>
+        <div class="text-center py-5">
+            <h1>Welkom, {{ Auth::user()->name }}</h1>
+            <hr class="w-25 mx-auto my-5">
+            <div>
+                <h2>Jouw cases</h2>
+                <div class="w-25 mx-auto my-5">
+                    <ul>
+                        @if ($cases->isEmpty())
+                            <li>Geen cases gevonden!</li>
+                        @else
+                            @foreach($cases as $case)
+                                <li>{{ $case->description }} - {{ $case->approved }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
                 </div>
-                <hr class="w-25 mx-auto my-5">
-                <div>
-                    <h2>Jouw wagens</h2>
-                    <div class="w-25 mx-auto my-5">
-                        <ul>
-                            @if ($cars->isEmpty())
-                                <li>Geen wagens gevonden!</li>
-                            @else
-                                @foreach($cars as $car)
-                                    <li>{{ $car->car_name }}</li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <a href="/">
-                        <button>naar Wagens</button>
-                    </a>
-                </div>
-                <hr class="w-25 mx-auto my-5">
-                <div>
-                    <h2>Jouw Mechaniekers</h2>
-                    <div class="w-25 mx-auto my-5">
-                        <ul>
-                            @if ($mechanics->isEmpty())
-                                <li>Geen Mechaniekers gevonden!</li>
-                            @else
-                                @foreach($mechanics as $mechanic)
-                                    <li>{{ $mechanic->name }} - {{ $mechanic->company_name }}</li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <a href="/">
-                        <button>naar Mechaniekers</button>
-                    </a>
-                </div>
+                <a href="/">
+                    <button>naar Cases</button>
+                </a>
             </div>
-        @else
-            <div class="text-center py-5">
-                <h1>Welkom, {{ Auth::user()->name }}</h1>
-                <hr class="w-25 mx-auto my-5">
-                <div>
-                    <h2>Open Cases</h2>
-                    <div class="w-25 mx-auto my-5">
-                        <ul>
-                            @if ($cases->isEmpty())
-                                <li>Geen open Cases</li>
-                            @else
-                                @foreach($cases as $case)
-                                    @if($case->approval)
-                                    <li>{{ $case->description }}</li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                    <a href="/cases">
-                        <button>nieuwe case</button>
-                    </a>
+            <hr class="w-25 mx-auto my-5">
+            <div>
+                <h2>Jouw wagens</h2>
+                <div class="w-25 mx-auto my-5">
+                    <ul>
+                        @if ($cars->isEmpty())
+                            <li>Geen wagens gevonden!</li>
+                        @else
+                            @foreach($cars as $car)
+                                <li>{{ $car->car_name }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
                 </div>
+                <a href="/">
+                    <button>naar Wagens</button>
+                </a>
             </div>
-        @endif
+            <hr class="w-25 mx-auto my-5">
+            <div>
+                <h2>Jouw Mechaniekers</h2>
+                <div class="w-25 mx-auto my-5">
+                    <ul>
+                        @if ($mechanics->isEmpty())
+                            <li>Geen Mechaniekers gevonden!</li>
+                        @else
+                            @foreach($mechanics as $mechanic)
+                                <li>{{ $mechanic->name }} - {{ $mechanic->company_name }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <a href="/">
+                    <button>naar Mechaniekers</button>
+                </a>
+            </div>
+        </div>
+    @elseif(@auth('mechanic'))
+        <div class="text-center py-5">
+            <h1>Welkom, {{ auth('mechanic')->user()->name }}</h1>
+            <hr class="w-25 mx-auto my-5">
+            <div>
+                <h2>Open Cases</h2>
+                <div class="w-25 mx-auto my-5">
+                    <ul>
+                        @if ($mechanicCases->isEmpty())
+                            <li>Geen open Cases</li>
+                            @foreach($mechanicCases as $case)
+                                @if($case->approval)
+                                <li>{{ $case->description }}</li>
+                                @endif
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <a href="/cases">
+                    <button>nieuwe case</button>
+                </a>
+            </div>
+        </div>
     @else
         <div class="text-center py-5">
             <h1 class="display-3 fw-bold mb-4">Welkom bij Pitstop</h1>

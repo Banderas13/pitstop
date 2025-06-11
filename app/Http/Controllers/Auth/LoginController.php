@@ -46,7 +46,7 @@ class LoginController extends Controller
             $request->session()->put('user_type', 'mechanic');
             
             
-            return redirect()->intended('/'); // pas aan naar jouw mechanic route
+            return redirect()->intended('/register'); // pas aan naar jouw mechanic route
         }
 
         
