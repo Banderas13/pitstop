@@ -10,6 +10,7 @@ use App\Http\Controllers\CarController;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', [DashboardController::class, 'index']);
@@ -36,3 +37,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/name', [ProfileController::class, 'updateName'])->name('profile.update.name');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+    Route::put('/profile/email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
+});
