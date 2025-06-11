@@ -31,7 +31,7 @@
                             <a class="nav-link active" href="/">Service</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">account</a>
+                            <a class="nav-link active" href="{{ route('profile') }}">account</a>
                         </li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
