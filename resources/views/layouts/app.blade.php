@@ -21,35 +21,33 @@
                         <a class="nav-link active" href="/">Home</a>
                     </li>
                     @auth
-                        @if(Auth::user()->name != null)
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">Wagens</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">Mechaniekers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">Service</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">account</a>
-                            </li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="nav-link active">Logout</button>
-                            </form>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">Service</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/">account</a>
-                            </li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="nav-link active">Logout</button>
-                            </form>
-                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Wagens</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Mechaniekers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">account</a>
+                        </li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link active">Logout</button>
+                        </form>
+                    @elseif(@auth('mechanic'))
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">account</a>
+                        </li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link active">Logout</button>
+                        </form>
                     @else
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('login') }}">Login</a>
