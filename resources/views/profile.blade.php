@@ -33,104 +33,226 @@
                         </div>
                     @endif
 
-                    <!-- Naam wijzigen -->
-                    <form method="POST" action="{{ route('profile.update.name') }}" class="mb-4">
-                        @csrf
-                        @method('PUT')
-                        
-                        <h5 class="mb-3">Naam wijzigen</h5>
-                        <div class="mb-3">
-                            <label class="form-label">Nieuwe naam</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                   name="name" value="{{ old('name', auth()->user()->name) }}" required>
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    @if(Auth::guard('mechanic')->check())
+                        <!-- Mechanic Profile Form -->
+                        <form method="POST" action="{{ route('profile.update.name') }}" class="mb-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">Persoonlijke Gegevens</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Naam</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                       name="name" value="{{ old('name', $user->name) }}" required>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Naam bijwerken
-                            </button>
-                        </div>
-                    </form>
+                            <div class="mb-3">
+                                <label class="form-label">Bedrijfsnaam</label>
+                                <input type="text" class="form-control" 
+                                       value="{{ $user->company_name }}" readonly>
+                            </div>
 
-                    <hr class="my-4">
+                            <div class="mb-3">
+                                <label class="form-label">BTW nummer</label>
+                                <input type="text" class="form-control" 
+                                       value="{{ $user->vat }}" readonly>
+                            </div>
 
-                    <!-- Email wijzigen -->
-                    <form method="POST" action="{{ route('profile.update.email') }}" class="mb-4">
-                        @csrf
-                        @method('PUT')
-                        
-                        <h5 class="mb-3">E-mailadres wijzigen</h5>
-                        <div class="mb-3">
-                            <label class="form-label">Nieuw e-mailadres</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                   name="email" value="{{ old('email', auth()->user()->email) }}" required>
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label">Adres</label>
+                                <input type="text" class="form-control" 
+                                       value="{{ $user->adress }}" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Huidig wachtwoord</label>
-                            <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                   name="current_password" required>
-                            @error('current_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telefoonnummer</label>
+                                <input type="tel" class="form-control @error('telephone') is-invalid @enderror" 
+                                       name="telephone" value="{{ old('telephone', $user->telephone) }}" required>
+                                @error('telephone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-envelope"></i> E-mailadres bijwerken
-                            </button>
-                        </div>
-                    </form>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Gegevens bijwerken
+                                </button>
+                            </div>
+                        </form>
 
-                    <hr class="my-4">
+                        <hr class="my-4">
 
-                    <!-- Wachtwoord wijzigen -->
-                    <form method="POST" action="{{ route('profile.update.password') }}">
-                        @csrf
-                        @method('PUT')
-                        
-                        <h5 class="mb-3">Wachtwoord wijzigen</h5>
-                        <div class="mb-3">
-                            <label class="form-label">Huidig wachtwoord</label>
-                            <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                   name="current_password" required>
-                            @error('current_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <!-- Email wijzigen voor Mechanic -->
+                        <form method="POST" action="{{ route('profile.update.email') }}" class="mb-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">E-mailadres wijzigen</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Nieuw e-mailadres</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                       name="email" value="{{ old('email', $user->email) }}" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Nieuw wachtwoord</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                   name="password" required>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label">Huidig wachtwoord</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       name="current_password" required>
+                                @error('current_password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Bevestig nieuw wachtwoord</label>
-                            <input type="password" class="form-control" 
-                                   name="password_confirmation" required>
-                        </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> E-mailadres bijwerken
+                                </button>
+                            </div>
+                        </form>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-key">Wachtwoord bijwerken </i> 
-                            </button>
-                        </div>
-                    </form>
+                        <hr class="my-4">
+
+                        <!-- Wachtwoord wijzigen voor Mechanic -->
+                        <form method="POST" action="{{ route('profile.update.password') }}">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">Wachtwoord wijzigen</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Huidig wachtwoord</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       name="current_password" required>
+                                @error('current_password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nieuw wachtwoord</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                       name="password" required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Bevestig nieuw wachtwoord</label>
+                                <input type="password" class="form-control" 
+                                       name="password_confirmation" required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-key"></i> Wachtwoord bijwerken
+                                </button>
+                            </div>
+                        </form>
+                    @else
+                        <!-- Existing User Profile Form -->
+                        <!-- Naam wijzigen -->
+                        <form method="POST" action="{{ route('profile.update.name') }}" class="mb-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">Naam wijzigen</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Nieuwe naam</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                       name="name" value="{{ old('name', $user->name) }}" required>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Naam bijwerken
+                                </button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <!-- Email wijzigen -->
+                        <form method="POST" action="{{ route('profile.update.email') }}" class="mb-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">E-mailadres wijzigen</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Nieuw e-mailadres</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                       name="email" value="{{ old('email', $user->email) }}" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Huidig wachtwoord</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       name="current_password" required>
+                                @error('current_password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-envelope"></i> E-mailadres bijwerken
+                                </button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <!-- Wachtwoord wijzigen -->
+                        <form method="POST" action="{{ route('profile.update.password') }}">
+                            @csrf
+                            @method('PUT')
+                            
+                            <h5 class="mb-3">Wachtwoord wijzigen</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Huidig wachtwoord</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       name="current_password" required>
+                                @error('current_password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nieuw wachtwoord</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                       name="password" required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Bevestig nieuw wachtwoord</label>
+                                <input type="password" class="form-control" 
+                                       name="password_confirmation" required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-key"></i> Wachtwoord bijwerken
+                                </button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection
