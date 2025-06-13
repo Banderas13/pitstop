@@ -38,7 +38,9 @@ Route::middleware('auth')->group(function () {
 
 // Service page route
 Route::middleware(['auth:web,mechanic'])->group(function () {
-    Route::view('/service', 'service')->name('service.index');
+    Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/service/create', [ServiceController::class, 'create'])->name('service.create');
+    Route::get('/service/user-cars', [ServiceController::class, 'getUserCars'])->name('service.user-cars');
 });
 
 // Account routes (require authentication)
