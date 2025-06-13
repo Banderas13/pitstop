@@ -40,7 +40,17 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth:web,mechanic'])->group(function () {
     Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
     Route::get('/service/create', [ServiceController::class, 'create'])->name('service.create');
+    Route::get('/service/create/step2', [ServiceController::class, 'createStep2'])->name('service.create.step2');
+    Route::post('/service/create/step2', [ServiceController::class, 'storeStep2'])->name('service.store.step2');
+    Route::get('/service/create/step3', [ServiceController::class, 'createStep3'])->name('service.create.step3');
+    Route::post('/service/create/step3', [ServiceController::class, 'storeStep3'])->name('service.store.step3');
+    Route::get('/service/create/step4', [ServiceController::class, 'createStep4'])->name('service.create.step4');
+    Route::post('/service/create/step4', [ServiceController::class, 'storeStep4'])->name('service.store.step4');
+    Route::get('/service/create/step5', [ServiceController::class, 'createStep5'])->name('service.create.step5');
+    Route::post('/service/create/step5', [ServiceController::class, 'storeStep5'])->name('service.store.step5');
     Route::get('/service/user-cars', [ServiceController::class, 'getUserCars'])->name('service.user-cars');
+    Route::get('/service/get-user-data', [ServiceController::class, 'getUserData'])->name('service.get-user-data');
+    Route::get('/service/get-car-data', [ServiceController::class, 'getCarData'])->name('service.get-car-data');
 });
 
 // Account routes (require authentication)
