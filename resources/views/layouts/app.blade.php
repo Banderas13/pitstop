@@ -25,7 +25,7 @@
                             <a class="nav-link active" href="/">Wagens</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Mechaniekers</a>
+                            <a class="nav-link active" href="/mechanics">Mechaniekers</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/">Service</a>

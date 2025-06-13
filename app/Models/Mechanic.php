@@ -63,6 +63,6 @@ class Mechanic extends Authenticatable
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'mechanic_user');
+        return $this->belongsToMany(User::class, 'user_mechanic');
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MechanicController;
 
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -29,7 +30,11 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mechanics', [MechanicController::class, 'index']);
+    Route::get('/mechanics/search', [MechanicController::class, 'search'])->name('mechanics.search');
+    Route::post('/mechanics/add/{id}', [MechanicController::class, 'addToContacts'])->name('mechanics.add');
+});
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
