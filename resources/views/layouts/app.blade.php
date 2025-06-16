@@ -20,42 +20,49 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/">Home</a>
                     </li>
-                    @auth
+                    @if(Auth::guard('mechanic')->check())
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Wagens</a>
+                            <a class="nav-link" href="{{ route('service.index') }}">Service</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/mechanics">Mechaniekers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Service</a>
+                            <a class="nav-link" href="{{ route('profile') }}">Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">account</a>
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
                         </li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link active">Logout</button>
-                        </form>
-                    @elseif(@auth('mechanic'))
+                    @elseif(Auth::guard('web')->check())
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Service</a>
+                            <a class="nav-link" href="{{ route('cars.index') }}">Wagens</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">account</a>
+                            <a class="nav-link" href="{{ route('mechanics.index') }}">Mechaniekers</a>
                         </li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link active">Logout</button>
-                        </form>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('service.index') }}">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('profile') }}">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
+                        </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('register') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
                         </li>
-                    @endauth
+                    @endif
                 </ul>
             </div>
         </div>
@@ -72,7 +79,7 @@
         </div>
         <div class="container text-center">
             <br><a href="/contact" class="nav-item">Contact</a>
-            <br><a href="/about" class="nav-item">over ons</a>
+            <br><a href="/about" class="nav-item">Over ons</a>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -27,8 +27,8 @@
                         @endif
                     </ul>
                 </div>
-                <a href="/">
-                    <button>naar Cases</button>
+                <a href="{{ route('cases.index') }}" class="btn btn-primary">
+                    Naar Cases
                 </a>
             </div>
             <hr class="w-25 mx-auto my-5">
@@ -45,8 +45,8 @@
                         @endif
                     </ul>
                 </div>
-                <a href="/">
-                    <button>naar Wagens</button>
+                <a href="{{ route('cars.index') }}" class="btn btn-primary">
+                    Naar Wagens
                 </a>
             </div>
             <hr class="w-25 mx-auto my-5">
@@ -54,21 +54,21 @@
                 <h2>Jouw Mechaniekers</h2>
                 <div class="w-25 mx-auto my-5">
                     <ul>
-                        @if ($mechanics->isEmpty())
-                            <li>Geen Mechaniekers gevonden!</li>
-                        @else
+                        @if(isset($mechanics) && !$mechanics->isEmpty())
                             @foreach($mechanics as $mechanic)
                                 <li>{{ $mechanic->name }} - {{ $mechanic->company_name }}</li>
                             @endforeach
+                        @else
+                            <li>Geen Mechaniekers gevonden!</li>
                         @endif
                     </ul>
                 </div>
-                <a href="/">
-                    <button>naar Mechaniekers</button>
+                <a href="{{ route('mechanics.index') }}" class="btn btn-primary">
+                    Naar Mechaniekers
                 </a>
             </div>
         </div>
-    @elseif(@auth('mechanic'))
+    @elseif(auth('mechanic')->check())
         <div class="text-center py-5">
             <h1>Welkom, {{ auth('mechanic')->user()->name }}</h1>
             <hr class="w-25 mx-auto my-5">
@@ -76,18 +76,19 @@
                 <h2>Open Cases</h2>
                 <div class="w-25 mx-auto my-5">
                     <ul>
-                        @if ($mechanicCases->isEmpty())
-                            <li>Geen open Cases</li>
+                        @if(isset($mechanicCases) && !$mechanicCases->isEmpty())
                             @foreach($mechanicCases as $case)
                                 @if($case->approval)
-                                <li>{{ $case->description }}</li>
+                                    <li>{{ $case->description }}</li>
                                 @endif
                             @endforeach
+                        @else
+                            <li>Geen open Cases</li>
                         @endif
                     </ul>
                 </div>
-                <a href="/cases">
-                    <button>nieuwe case</button>
+                <a href="{{ route('cases.create') }}" class="btn btn-primary">
+                    Nieuwe case
                 </a>
             </div>
         </div>
