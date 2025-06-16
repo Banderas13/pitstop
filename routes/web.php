@@ -62,7 +62,6 @@ Route::middleware(['auth:web,mechanic'])->group(function () {
 
 // Simple view routes for authenticated users
 Route::middleware(['auth:web,mechanic'])->group(function () {
-    Route::view('/mechanics', 'mechanics')->name('mechanics.index');
     Route::get('/account', [ProfileController::class, 'index'])->name('account.index');
 });
 
@@ -74,7 +73,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mechanics', [MechanicController::class, 'index']);
+    Route::get('/mechanics', [MechanicController::class, 'index'])->name('mechanics.index');
     Route::get('/mechanics/search', [MechanicController::class, 'search'])->name('mechanics.search');
     Route::post('/mechanics/add/{id}', [MechanicController::class, 'addToContacts'])->name('mechanics.add');
 });

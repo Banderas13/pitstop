@@ -25,9 +25,6 @@
                             <a class="nav-link" href="{{ route('service.index') }}">Service</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/mechanics">Mechaniekers</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">Account</a>
                         </li>
                         <li class="nav-item">
