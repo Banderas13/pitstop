@@ -87,7 +87,7 @@
                         @endif
                     </ul>
                 </div>
-                <a href="{{ route('cases.create') }}" class="btn btn-primary">
+                <a href="/service/create" class="btn btn-primary">
                     Nieuwe case
                 </a>
             </div>

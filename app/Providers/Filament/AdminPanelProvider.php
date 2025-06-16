@@ -54,6 +54,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
                 \App\Http\Middleware\AdminAccess::class,
             ])
+            ->authGuard('web')
             ->brandName('Pitstop');
     }
 }
