@@ -73,6 +73,11 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mechanics', [MechanicController::class, 'index']);
+    Route::get('/mechanics/search', [MechanicController::class, 'search'])->name('mechanics.search');
+    Route::post('/mechanics/add/{id}', [MechanicController::class, 'addToContacts'])->name('mechanics.add');
+});
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
