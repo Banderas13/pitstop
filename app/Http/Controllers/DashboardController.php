@@ -15,8 +15,7 @@ class DashboardController extends Controller
         if($user != null){
             $cars = $user->cars;
             $cases = $user->cases;
-            // Instead of using the relationship, we'll get all mechanics
-            $mechanics = Mechanic::all();
+            $mechanics = $user->mechanics;
             $mechanicCases = [];
         }
         elseif($mechanic != null){
