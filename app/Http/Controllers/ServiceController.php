@@ -17,27 +17,95 @@ class ServiceController extends Controller
     public function index()
     {
         // Check if user is authenticated as mechanic
-        if (!Auth::guard('mechanic')->check()) {
-            abort(403, 'Alleen mechaniekers hebben toegang tot deze pagina.');
+        if (Auth::guard('mechanic')->check()) {
+            $mechanic = Auth::guard('mechanic')->user();
+            
+            // Get open cases (not approved yet)
+            $openCases = CaseModel::where('mechanic_id', $mechanic->id)
+                ->where('approval', false)
+                ->with(['user', 'car.type.brand', 'offer'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+            
+            // Get closed cases (approved)
+            $closedCases = CaseModel::where('mechanic_id', $mechanic->id)
+                ->where('approval', true)
+                ->with(['user', 'car.type.brand', 'offer'])
+                ->orderBy('updated_at', 'desc')
+                ->get();
+
+            return view('service', compact('openCases', 'closedCases'));
         }
+        // Check if user is authenticated as regular user
+        elseif (Auth::guard('web')->check()) {
+            $user = Auth::guard('web')->user();
+            
+            // Get open cases for this user (not approved yet)
+            $openCases = CaseModel::where('user_id', $user->id)
+                ->where('approval', false)
+                ->with(['mechanic', 'car.type.brand', 'offer'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+            
+            // Get closed cases for this user (approved)
+            $closedCases = CaseModel::where('user_id', $user->id)
+                ->where('approval', true)
+                ->with(['mechanic', 'car.type.brand', 'offer'])
+                ->orderBy('updated_at', 'desc')
+                ->get();
 
-        $mechanic = Auth::guard('mechanic')->user();
-        
-        // Get open cases (not approved yet)
-        $openCases = CaseModel::where('mechanic_id', $mechanic->id)
-            ->where('approval', false)
-            ->with(['user', 'car.type.brand', 'offer'])
-            ->orderBy('created_at', 'desc')
-            ->get();
-        
-        // Get closed cases (approved)
-        $closedCases = CaseModel::where('mechanic_id', $mechanic->id)
-            ->where('approval', true)
-            ->with(['user', 'car.type.brand', 'offer'])
-            ->orderBy('updated_at', 'desc')
-            ->get();
+            return view('service-user', compact('openCases', 'closedCases'));
+        }
+        else {
+            abort(403, 'Je moet ingelogd zijn om deze pagina te bekijken.');
+        }
+    }
 
-        return view('service', compact('openCases', 'closedCases'));
+    public function show(CaseModel $case)
+    {
+        // Check if user is authenticated as mechanic
+        if (Auth::guard('mechanic')->check()) {
+            $mechanic = Auth::guard('mechanic')->user();
+            
+            // Check if this case belongs to the authenticated mechanic
+            if ($case->mechanic_id !== $mechanic->id) {
+                abort(403, 'Je hebt geen toegang tot deze case.');
+            }
+
+            // Load all related data
+            $case->load([
+                'user',
+                'car.type.brand', 
+                'offer',
+                'media',
+                'mechanic'
+            ]);
+
+            return view('service.show', compact('case'));
+        }
+        // Check if user is authenticated as regular user
+        elseif (Auth::guard('web')->check()) {
+            $user = Auth::guard('web')->user();
+            
+            // Check if this case belongs to the authenticated user
+            if ($case->user_id !== $user->id) {
+                abort(403, 'Je hebt geen toegang tot deze case.');
+            }
+
+            // Load all related data
+            $case->load([
+                'user',
+                'car.type.brand', 
+                'offer',
+                'media',
+                'mechanic'
+            ]);
+
+            return view('service.show', compact('case'));
+        }
+        else {
+            abort(403, 'Je moet ingelogd zijn om deze case te bekijken.');
+        }
     }
 
     public function create()
@@ -666,5 +734,40 @@ class ServiceController extends Controller
             'year' => $car->year,
             'fuel' => ucfirst($car->fuel),
         ]);
+    }
+
+    public function approve(CaseModel $case)
+    {
+        // Check if user is authenticated as regular user (not mechanic)
+        if (!Auth::guard('web')->check()) {
+            abort(403, 'Alleen klanten kunnen cases goedkeuren.');
+        }
+
+        $user = Auth::guard('web')->user();
+        
+        // Check if this case belongs to the authenticated user
+        if ($case->user_id !== $user->id) {
+            abort(403, 'Je hebt geen toegang tot deze case.');
+        }
+
+        // Check if case is already approved
+        if ($case->approval) {
+            return redirect()->back()->with('info', 'Deze case is al goedgekeurd.');
+        }
+
+        try {
+            // Update the case to approved
+            $case->update([
+                'approval' => true,
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->back()->with('success', 'Case succesvol goedgekeurd! De status is bijgewerkt.');
+
+        } catch (\Exception $e) {
+            \Log::error('Error approving case: ' . $e->getMessage());
+            
+            return redirect()->back()->with('error', 'Er is een fout opgetreden bij het goedkeuren van de case. Probeer het opnieuw.');
+        }
     }
 } 
