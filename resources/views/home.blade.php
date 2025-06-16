@@ -27,7 +27,7 @@
                         @endif
                     </ul>
                 </div>
-                <a href="{{ route('cases.index') }}" class="btn btn-primary">
+                <a href="/service" class="btn btn-primary">
                     Naar Cases
                 </a>
             </div>
@@ -54,7 +54,7 @@
                 <h2>Jouw Mechaniekers</h2>
                 <div class="w-25 mx-auto my-5">
                     <ul>
-                        @if(isset($mechanics) && !$mechanics->isEmpty())
+                        @if(!$mechanics->isEmpty())
                             @foreach($mechanics as $mechanic)
                                 <li>{{ $mechanic->name }} - {{ $mechanic->company_name }}</li>
                             @endforeach
