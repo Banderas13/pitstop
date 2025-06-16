@@ -89,3 +89,7 @@ Route::middleware(['auth:web,mechanic'])->group(function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
     Route::put('/profile/email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
 });
+
+Route::get('/about', function () {
+    return view('about');
+});
