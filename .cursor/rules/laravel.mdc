@@ -41,6 +41,12 @@ alwaysApply: true
 **Rebuilding Assets**
 - Tell the user to run `composer run dev` to rebuild assets instead of `npm run dev`
 
+**Laravel Tailwind**
+- Tailwind is already pre-configured since Laravel 11, with Vite.
+- Utilize Tailwind's utility classes for responsive design.
+- Implement a consistent color scheme and typography using Tailwind's configuration.
+- Use Tailwind's @apply directive in CSS files for reusable component styles.
+- Optimize for production by purging unused CSS classes.
 
 **Common Paths to Help With Codebase Searches**
 - Laravel controllers are under `/app/Http/Controllers/*`
@@ -59,5 +65,5 @@ alwaysApply: true
 - PHP ^8.4
 - PHPunit testing framework
 - Laravel 12+
-
+- Tailwindcss 4.1
 - MySQL Database
