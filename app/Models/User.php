@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function mechanics()
     {
-        return $this->belongsToMany(Mechanic::class, 'mechanic_user', 'user_id', 'mechanic_id')
+        return $this->belongsToMany(Mechanic::class, 'user_mechanic', 'user_id', 'mechanic_id')
             ->withTimestamps();
     }
 
