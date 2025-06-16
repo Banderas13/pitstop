@@ -15,7 +15,6 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MechanicController;
 
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/home', [DashboardController::class, 'index'])->name('home');
