@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
 // Service page route
 Route::middleware(['auth:web,mechanic'])->group(function () {
     Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/service/{case}', [ServiceController::class, 'show'])->name('service.show');
+    Route::patch('/service/{case}/approve', [ServiceController::class, 'approve'])->name('service.approve');
     Route::get('/service/create', [ServiceController::class, 'create'])->name('service.create');
     Route::get('/service/create/step2', [ServiceController::class, 'createStep2'])->name('service.create.step2');
     Route::post('/service/create/step2', [ServiceController::class, 'storeStep2'])->name('service.store.step2');
