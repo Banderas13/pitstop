@@ -115,9 +115,8 @@
                                         <div class="fw-bold text-success">€{{ number_format($case->offer->price, 2) }}</div>
                                     @endif
                                 </div>
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Bekijk</button>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm">Bewerk</button>
+                                <div>
+                                    <a href="{{ route('service.show', $case->id) }}" class="btn btn-outline-primary btn-sm">Bekijk</a>
                                 </div>
                             </div>
                         @endforeach
@@ -166,7 +165,7 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Bekijk</button>
+                                    <a href="{{ route('service.show', $case->id) }}" class="btn btn-outline-primary btn-sm">Bekijk</a>
                                 </div>
                             </div>
                         @endforeach
