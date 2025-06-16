@@ -48,4 +48,22 @@ class MechanicController extends Controller
     
         return redirect()->back()->with('success', 'Mechanieker toegevoegd aan je contactlijst!');
     }
+
+        public function Show(Request $request){
+        $user = Auth::user();
+        $mechanics = $user->mechanics;
+        $query = Mechanic::query();
+    
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('company_name', 'like', "%{$search}%");
+            });
+        }
+    
+        $searchedMechanics = $query->get();
+    
+        return view('mechanics', compact('mechanics', 'searchedMechanics'));
+    }
 }
