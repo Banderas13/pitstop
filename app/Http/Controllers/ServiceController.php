@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CaseMail;
+use App\Models\Media;
 
 class ServiceController extends Controller
 {
@@ -563,6 +566,18 @@ class ServiceController extends Controller
                 $this->saveMediaFiles($case->id, $mediaFiles);
             }
 
+            // Load relationships for email
+            $case->load(['user', 'car.type.brand', 'mechanic', 'offer']);
+
+            // Send email to user
+            try {
+                Mail::to($case->user->email)->send(new CaseMail($case));
+                \Log::info('Email succesvol verzonden naar: ' . $case->user->email);
+            } catch (\Exception $e) {
+                \Log::error('Fout bij verzenden email: ' . $e->getMessage());
+                // Continue with the process even if email fails
+            }
+
             // Commit the transaction
             \DB::commit();
 
@@ -571,7 +586,7 @@ class ServiceController extends Controller
 
             // Redirect with success message
             return redirect()->route('service.index')
-                ->with('success', 'Case succesvol aangemaakt en opgeslagen! De case is nu zichtbaar in je service overzicht.');
+                ->with('success', 'Case succesvol aangemaakt en opgeslagen! De klant is per email geïnformeerd.');
 
         } catch (\Exception $e) {
             // Rollback transaction on error
