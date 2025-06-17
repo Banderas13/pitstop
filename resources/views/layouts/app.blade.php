@@ -65,10 +65,23 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container py-4">
+    <!-- Main Content -->
+    <div class="container mt-4">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
+
     <footer class="bg-dark text-white py-4">
         <div class="container text-center">
             <p class="mb-1">&copy;Pitstop 2025-{{ date('Y') }}. Alle rechten voorbehouden.</p>
