@@ -91,38 +91,34 @@
             <div class="w-24 h-px bg-gray-700 mx-auto"></div>
         </div>
 
-        <!-- Features Section -->
+                <!-- Features Section -->
         <div class="max-w-4xl mx-auto mt-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
-                    <div class="text-center">
-                        <h3 class="text-xl font-bold uppercase tracking-wider text-chiffon mb-4">Voor Gebruikers</h3>
-                        <div class="space-y-3">
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Vind gekwalificeerde monteurs</p>
-                            </div>
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Ontvang foto updates</p>
-                            </div>
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Digitale facturen</p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+                <div class="flex flex-col items-center max-w-sm">
+                    <h3 class="text-xl font-bold uppercase tracking-wider text-chiffon mb-4">Voor Gebruikers</h3>
+                    <div class="space-y-3 w-full">
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Vind gekwalificeerde monteurs</p>
+                        </div>
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Ontvang foto updates</p>
+                        </div>
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Digitale facturen</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
-                    <div class="text-center">
-                        <h3 class="text-xl font-bold uppercase tracking-wider text-chiffon mb-4">Voor Monteurs</h3>
-                        <div class="space-y-3">
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Professioneel contact met klanten</p>
-                            </div>
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Deel reparatievoortgang</p>
-                            </div>
-                            <div class="border-l-2 border-pblue pl-4 text-left">
-                                <p class="text-gray-300 text-sm">✓ Verstuur PDF facturen</p>
-                            </div>
+                <div class="flex flex-col items-center max-w-sm">
+                    <h3 class="text-xl font-bold uppercase tracking-wider text-chiffon mb-4">Voor Monteurs</h3>
+                    <div class="space-y-3 w-full">
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Professioneel contact met klanten</p>
+                        </div>
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Deel reparatievoortgang</p>
+                        </div>
+                        <div class="border-l-2 border-pblue pl-4 text-left">
+                            <p class="text-gray-300 text-sm">✓ Verstuur PDF facturen</p>
                         </div>
                     </div>
                 </div>
