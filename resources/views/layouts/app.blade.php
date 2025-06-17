@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/">Home</a>
                     </li>
-                    @if(Auth::guard('mechanic')->check() && Auth::guard('mechanic')->user()->hasVerifiedEmail())
+                    @if(Auth::guard('mechanic')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('service.index') }}">Service</a>
                         </li>
@@ -33,7 +33,7 @@
                                 <button type="submit" class="btn btn-link nav-link">Logout</button>
                             </form>
                         </li>
-                    @elseif(Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
+                    @elseif(Auth::guard('web')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cars.index') }}">Wagens</a>
                         </li>
@@ -46,13 +46,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">Account</a>
                         </li>
-                        <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-link nav-link">Logout</button>
-                            </form>
-                        </li>
-                    @elseif(Auth::guard('mechanic')->check() || Auth::guard('web')->check())
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
@@ -72,10 +65,23 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container py-4">
+    <!-- Main Content -->
+    <div class="container mt-4">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
+
     <footer class="bg-dark text-white py-4">
         <div class="container text-center">
             <p class="mb-1">&copy;Pitstop 2025-{{ date('Y') }}. Alle rechten voorbehouden.</p>
