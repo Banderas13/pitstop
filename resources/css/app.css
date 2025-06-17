@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+@theme {
+    --color-*: initial;
+    --color-white: #F0F4EF;
+    --color-caribbean: #037171;
+    --color-midnight: #0D1821;
+    --color-pblue: #B4CDED;
+    --color-chiffon: #FEF6C9;
+  }
+/* colors
+caribbean: #037171 MAIN
+midnight: #0D1821 CONTRAST
+pblue: #B4CDED MAIN
+chiffon: #FEF6C9 ACCENT
+*/
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
