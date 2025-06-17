@@ -10,16 +10,16 @@ use Illuminate\Support\Facades\Log;
 
 class IsAdmin
 {
-    public function handle($request, Closure $next)
+    /*public function handle($request, Closure $next)
     {
         Log::info('AdminAccess middleware triggered.');
         Log::info('auth()->check(): ' . (auth()->check() ? 'true' : 'false'));
         Log::info('auth()->user(): ' . json_encode(auth()->user()));
-        
+
         if (Auth::check() && Auth::user()->is_admin) {
             return $next($request);
         }
 
         abort(403, 'Toegang geweigerd.');
-    }
+    }*/
 }
