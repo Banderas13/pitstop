@@ -250,6 +250,28 @@
                             </div>
                         </form>
                     @endif
+
+                    <!-- Delete Account Section -->
+                    <div class="mt-5 pt-4 border-top">
+                        <h5 class="text-danger mb-3">Account Verwijderen</h5>
+                        <p class="text-muted mb-3">Let op: Het verwijderen van je account is permanent en kan niet ongedaan worden gemaakt.</p>
+                        
+                        <form method="POST" action="{{ route('profile.delete') }}" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.');">
+                            @csrf
+                            @method('DELETE')
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Bevestig je wachtwoord</label>
+                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
+                                       name="current_password" required>
+                                @error('current_password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-danger">Account Verwijderen</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

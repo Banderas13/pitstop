@@ -53,8 +53,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
-                \App\Http\Middleware\AdminAccess::class,
+                //Authenticate::class,
+                //\App\Http\Middleware\AdminAccess::class,
             ])
             ->authGuard('web')
             ->brandName('Pitstop');
