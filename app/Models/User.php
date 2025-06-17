@@ -6,6 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable
 {
@@ -61,5 +64,9 @@ class User extends Authenticatable
     public function cases()
     {
         return $this->hasMany(CaseModel::class);
+    }
+
+    public function canAccessPanel(Panel $panel) : bool {
+        return Auth::user()->is_admin === 1;
     }
 }
