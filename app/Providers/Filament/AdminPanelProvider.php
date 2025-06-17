@@ -23,7 +23,6 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        Log::info('Adminpanel triggered');
         return $panel
             ->default()
             ->id('admin')
@@ -53,8 +52,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                //Authenticate::class,
-                //\App\Http\Middleware\AdminAccess::class,
+                Authenticate::class,
+                \App\Http\Middleware\AdminAccess::class,
             ])
             ->authGuard('web')
             ->brandName('Pitstop');

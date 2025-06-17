@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Support\Facades\Auth;
+use Filament\Panel;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
@@ -67,6 +68,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
   
     public function canAccessPanel(Panel $panel) : bool {
-        return Auth::user()->is_admin === 1;
+        return Auth::check() && Auth::user()->is_admin == 1;
     }
 }
