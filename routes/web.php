@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\AdminController;
@@ -100,3 +101,47 @@ Route::get('/contact', function(){
 Route::get('/about', function () {
     return view('about');
 });
+
+// Protected routes that require email verification
+Route::middleware(['auth:web,mechanic', 'verified'])->group(function () {
+    // User routes
+    Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
+    Route::get('/mechanics', [MechanicController::class, 'index'])->name('mechanics.index');
+    Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+});
+
+// Email Verification Routes
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware(['auth:web,mechanic'])->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+    // Store the current guard and user type before verification
+    $isMechanic = auth()->guard('mechanic')->check();
+    $userType = session('user_type');
+    
+    $request->fulfill();
+    
+    if ($isMechanic) {
+        // Get the mechanic instance
+        $mechanic = \App\Models\Mechanic::find($request->route('id'));
+        
+        // Log in the mechanic
+        auth()->guard('mechanic')->login($mechanic);
+        session()->put('user_type', 'mechanic');
+        
+        return redirect('/')->with('success', 'Uw e-mail is geverifieerd!');
+    }
+    
+    return redirect('/')->with('success', 'Uw e-mail is geverifieerd!');
+})->middleware(['auth:web,mechanic', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    if (auth()->guard('mechanic')->check()) {
+        auth()->guard('mechanic')->user()->sendEmailVerificationNotification();
+    } else {
+        auth()->user()->sendEmailVerificationNotification();
+    }
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth:web,mechanic', 'throttle:6,1'])->name('verification.send');
