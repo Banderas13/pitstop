@@ -92,6 +92,7 @@ Route::middleware(['auth:web,mechanic'])->group(function () {
     Route::put('/profile/name', [ProfileController::class, 'updateName'])->name('profile.update.name');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
     Route::put('/profile/email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
+    Route::delete('/profile/delete', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 });
 
 Route::get('/contact', function(){
