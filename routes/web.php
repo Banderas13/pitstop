@@ -8,7 +8,6 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\CaseController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AccountController;
@@ -28,11 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('cars', CarController::class)->except(['show', 'edit', 'update']);
     Route::get('search-brands', [CarController::class, 'searchBrands'])->name('cars.searchBrands');
     Route::get('search-models', [CarController::class, 'searchModels'])->name('cars.searchModels');
-});
-
-// Case routes (require authentication)
-Route::middleware('auth')->group(function () {
-    Route::resource('cases', CaseController::class);
 });
 
 // Mechanic routes (require authentication)
