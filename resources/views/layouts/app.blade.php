@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/">Home</a>
                     </li>
-                    @if(Auth::guard('mechanic')->check())
+                    @if(Auth::guard('mechanic')->check() && Auth::guard('mechanic')->user()->hasVerifiedEmail())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('service.index') }}">Service</a>
                         </li>
@@ -33,7 +33,7 @@
                                 <button type="submit" class="btn btn-link nav-link">Logout</button>
                             </form>
                         </li>
-                    @elseif(Auth::guard('web')->check())
+                    @elseif(Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cars.index') }}">Wagens</a>
                         </li>
@@ -46,6 +46,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">Account</a>
                         </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
+                        </li>
+                    @elseif(Auth::guard('mechanic')->check() || Auth::guard('web')->check())
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
