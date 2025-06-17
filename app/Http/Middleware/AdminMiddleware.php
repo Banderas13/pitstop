@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next): Response
+    /*public function handle(Request $request, Closure $next): Response
     {
         // Check if user is authenticated and is admin
         if (!auth()->check()) {
@@ -20,5 +20,5 @@ class AdminMiddleware
         }
         
         return $next($request);
-    }
+    }*/
 }
