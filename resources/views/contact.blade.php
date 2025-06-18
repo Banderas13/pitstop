@@ -149,12 +149,9 @@
                     MEER INFORMATIE<br> OVER ONZE FILOSOFIE
                 </h2>
                 <p class="text-xl text-gray-300 mb-12">
-                    Bekijk onze andere pagina's voor meer informatie
+                    Bekijk onze andere pagina voor meer informatie
                 </p>
                 <div class="space-x-6">
-                    <a href="{{ route('home') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
-                        TERUG NAAR HOME
-                    </a>
                     <a href="/about" class="inline-block border-2 border-pblue text-pblue px-8 py-4 font-medium uppercase tracking-wider hover:bg-white hover:text-black transition-colors duration-300">
                         OVER PITSTOP
                     </a>
