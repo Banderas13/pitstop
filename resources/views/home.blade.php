@@ -239,6 +239,16 @@
                                 LOGIN
                             </a>
                         </div>
+                        <div class="mt-16 animate-bounce">
+                            <p class="text-sm text-gray-400 uppercase tracking-widest mb-2">
+                                scroll voor meer info
+                            </p>
+                            <div class="flex justify-center">
+                                <svg class="w-6 h-6 text-gray-400 hover:text-pblue transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
