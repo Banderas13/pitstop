@@ -1,20 +1,174 @@
 @extends('layouts.app')
 
+@section('title', 'Over Ons')
+
 @section('content')
-    <div class="text-center py-6">
-        <h1>inspiratie / doel van PitStop</h1>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam luctus enim lacinia vehicula. Pellentesque dapibus, leo pharetra egestas sagittis, nisl tortor scelerisque nunc, a vestibulum magna dolor quis enim. Sed lorem elit, tincidunt a vehicula in, dapibus ut tortor. Nullam fermentum orci eu finibus pharetra. Morbi convallis rutrum auctor. Ut fringilla sem id justo congue, a porta lorem lacinia. Duis rutrum felis a ipsum eleifend ultrices. Fusce a ex libero. Proin a augue nec purus placerat consectetur.
-        <br>
-        <br>
-        Sed eleifend ligula congue mattis tempus. Aliquam fermentum ullamcorper nisl non feugiat. Vestibulum eu semper quam, id sagittis velit. Maecenas accumsan placerat nulla, at porttitor felis dapibus vitae. Mauris dignissim, eros non blandit dignissim, sapien massa dictum nunc, id congue mi nibh et quam. Ut sit amet augue at purus convallis ultrices. Donec eu magna in lacus ultricies fermentum et in diam. Curabitur fringilla urna vel mi maximus fermentum. Cras eget justo odio. Integer at mi imperdiet, facilisis augue vel, vestibulum mi. Curabitur ut enim quis quam cursus porttitor. Praesent porta ultricies bibendum. Quisque faucibus, sapien eget condimentum egestas, nibh massa fermentum lacus, sagittis aliquam sem felis a tortor. Cras efficitur erat sit amet nunc ultrices, sit amet aliquet felis finibus. Aliquam sed mi sit amet mi aliquet faucibus. Ut lacus mi, aliquet id orci in, egestas maximus ipsum.
-        <br>
-        <br>
-        Pellentesque enim ante, feugiat vel facilisis at, placerat in nisi. Phasellus eleifend ex eu auctor luctus. Aliquam fermentum orci eu elementum semper. Vestibulum ac rhoncus ligula. Donec interdum accumsan nulla ac laoreet. Donec dapibus orci sed porttitor venenatis. Cras vehicula mollis risus, ac tincidunt turpis feugiat a. Aenean porttitor varius metus, nec sagittis libero egestas pulvinar. Donec consequat efficitur risus eleifend rutrum.
-        <br>
-        <br>
-        Aliquam nec sem eleifend, auctor enim vitae, sagittis dui. Ut id finibus nibh. Sed id dolor varius, faucibus dolor ac, iaculis nibh. Donec pharetra consequat nisl ac dignissim. Nunc vitae ante ipsum. Etiam sit amet urna sapien. Quisque tempor tortor urna. In hac habitasse platea dictumst. Sed id orci lacus. Aliquam erat volutpat. Nulla viverra scelerisque magna ut hendrerit. Maecenas aliquam pretium dignissim. Phasellus imperdiet ullamcorper neque, non ultrices ligula laoreet sed. Nunc posuere tincidunt nisl a hendrerit. Pellentesque sodales convallis convallis.
-        <br>
-        <br>
-        In vel tristique tellus. Praesent rhoncus sapien ligula, vel laoreet tellus interdum commodo. Nam id nisl tincidunt, pulvinar sem vel, lobortis magna. Aliquam justo dolor, fringilla nec auctor et, lacinia eget quam. Aenean et suscipit lorem. Donec pharetra, mi gravida vehicula vehicula, quam nisi commodo mauris, tristique mattis odio neque et nisi. Praesent mattis, elit nec ullamcorper hendrerit, enim diam fringilla metus, quis aliquam velit arcu nec tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi condimentum magna at orci fermentum, non consequat magna fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur in risus quis erat accumsan convallis. Curabitur ex felis, ultricies sit amet nisl vel, molestie ornare turpis. Nam condimentum congue nisi eu ornare.
+    <div class="min-h-screen bg-black">
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <h1 class="text-6xl lg:text-8xl font-black uppercase tracking-widest mb-8">
+                        OVER
+                    </h1>
+                    <h1 class="text-6xl lg:text-8xl font-black uppercase tracking-widest text-pblue mb-8">
+                        PITSTOP
+                    </h1>
+                    <div class="w-32 h-1 bg-white mx-auto mt-8"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="py-32 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(01)</p>
+                        <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                            ONZE<br>MISSIE
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">TRANSPARANTIE</h3>
+                                <p class="text-gray-400">Eerlijke en transparante communicatie tussen gebruikers en monteurs</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">VERTROUWEN</h3>
+                                <p class="text-gray-400">Een veilige omgeving waar beide partijen met vertrouwen kunnen samenwerken</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">EFFICIËNTIE</h3>
+                                <p class="text-gray-400">Snelle en effectieve oplossingen voor voertuigproblemen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-6"></div>
+                            <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">PLATFORM VISIE</h3>
+                            <p class="text-gray-400">Een brug tussen expertise en behoefte in de automotive industrie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section class="py-32 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg lg:order-first">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-6"></div>
+                            <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">INNOVATIE</h3>
+                            <p class="text-gray-400">Modernisering van traditionele garage-klant relaties</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(02)</p>
+                        <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                            ONS<br>VERHAAL
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">PROBLEEM HERKENNING</h3>
+                                <p class="text-gray-400">We zagen de frustratie van eigenaren die niet wisten wat er met hun voertuig gebeurde</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">TECHNOLOGIE OPLOSSING</h3>
+                                <p class="text-gray-400">Door digitale communicatie een brug bouwen tussen expertise en vraag</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">TOEKOMST PERSPECTIEF</h3>
+                                <p class="text-gray-400">Een ecosysteem waar kwaliteit en transparantie centraal staan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="py-32 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+                <div class="mb-20">
+                    <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(03)</p>
+                    <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                        ONZE<br>WAARDEN
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                        <div class="text-3xl font-bold text-white mb-4">01</div>
+                        <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">KWALITEIT</h3>
+                        <p class="text-gray-400">Alleen gekwalificeerde monteurs en betrouwbare dienstverlening</p>
+                    </div>
+                    <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                        <div class="text-3xl font-bold text-white mb-4">02</div>
+                        <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">TRANSPARANTIE</h3>
+                        <p class="text-gray-400">Eerlijke prijzen en duidelijke communicatie over alle werkzaamheden</p>
+                    </div>
+                    <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                        <div class="text-3xl font-bold text-white mb-4">03</div>
+                        <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">VERTROUWEN</h3>
+                        <p class="text-gray-400">Een veilige omgeving waar beide partijen beschermd zijn</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Philosophy Section -->
+        <section class="py-32 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(04)</p>
+                        <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                            TEAM<br>FILOSOFIE
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">GEBRUIKER CENTRAAL</h3>
+                                <p class="text-gray-400">Elk besluit wordt genomen met de eindgebruiker in gedachten</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">CONTINUE VERBETERING</h3>
+                                <p class="text-gray-400">We leren van feedback en verbeteren constant ons platform</p>
+                            </div>
+                            <div class="border-l-2 border-chiffon pl-6">
+                                <h3 class="text-lg font-semibold text-pblue mb-2">COMMUNITY BUILDING</h3>
+                                <p class="text-gray-400">Samen bouwen we een sterke gemeenschap van professionals</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-6"></div>
+                            <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">SAMEN STERK</h3>
+                            <p class="text-gray-400">Door samenwerking bereiken we meer dan alleen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA Section -->
+        <section class="py-32 border-t border-gray-800">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                    VRAGEN OVER<br>PITSTOP?
+                </h2>
+                <p class="text-xl text-gray-300 mb-12">
+                    Neem contact met ons op voor meer informatie of feedback
+                </p>
+                <div>
+                    <a href="{{ route('contact') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
+                        CONTACT
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
 @endsection
