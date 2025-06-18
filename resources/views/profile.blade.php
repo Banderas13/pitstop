@@ -3,256 +3,299 @@
 @section('title', 'Instellingen')
 
 @section('content')
-<div class="container">
-    <div class="text-center py-3">
-        <h1 class="h2 fw-bold mb-2">Instellingen</h1>
-        <p class="mb-3">
-            Beheer je account instellingen
-        </p>
-        <hr class="w-25 mx-auto my-3">
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow">
-                <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if(Auth::guard('mechanic')->check())
-                        <!-- Mechanic Profile Form -->
-                        <form method="POST" action="{{ route('profile.update.name') }}" class="mb-4">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">Persoonlijke Gegevens</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Naam</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                       name="name" value="{{ old('name', $user->name) }}" required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Bedrijfsnaam</label>
-                                <input type="text" class="form-control" 
-                                       value="{{ $user->company_name }}" readonly>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">BTW nummer</label>
-                                <input type="text" class="form-control" 
-                                       value="{{ $user->vat }}" readonly>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Adres</label>
-                                <input type="text" class="form-control" 
-                                       value="{{ $user->adress }}" readonly>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Telefoonnummer</label>
-                                <input type="tel" class="form-control @error('telephone') is-invalid @enderror" 
-                                       name="telephone" value="{{ old('telephone', $user->telephone) }}" required>
-                                @error('telephone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Gegevens bijwerken
-                                </button>
-                            </div>
-                        </form>
-
-                        <hr class="my-4">
-
-                        <!-- Email wijzigen voor Mechanic -->
-                        <form method="POST" action="{{ route('profile.update.email') }}" class="mb-4">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">E-mailadres wijzigen</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Nieuw e-mailadres</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                       name="email" value="{{ old('email', $user->email) }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Huidig wachtwoord</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       name="current_password" required>
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-envelope"></i> E-mailadres bijwerken
-                                </button>
-                            </div>
-                        </form>
-
-                        <hr class="my-4">
-
-                        <!-- Wachtwoord wijzigen voor Mechanic -->
-                        <form method="POST" action="{{ route('profile.update.password') }}">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">Wachtwoord wijzigen</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Huidig wachtwoord</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       name="current_password" required>
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Nieuw wachtwoord</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                       name="password" required>
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Bevestig nieuw wachtwoord</label>
-                                <input type="password" class="form-control" 
-                                       name="password_confirmation" required>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-key"></i> Wachtwoord bijwerken
-                                </button>
-                            </div>
-                        </form>
-                    @else
-                        <!-- Existing User Profile Form -->
-                        <!-- Naam wijzigen -->
-                        <form method="POST" action="{{ route('profile.update.name') }}" class="mb-4">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">Naam wijzigen</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Nieuwe naam</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                       name="name" value="{{ old('name', $user->name) }}" required>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Naam bijwerken
-                                </button>
-                            </div>
-                        </form>
-
-                        <hr class="my-4">
-
-                        <!-- Email wijzigen -->
-                        <form method="POST" action="{{ route('profile.update.email') }}" class="mb-4">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">E-mailadres wijzigen</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Nieuw e-mailadres</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                       name="email" value="{{ old('email', $user->email) }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Huidig wachtwoord</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       name="current_password" required>
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-envelope"></i> E-mailadres bijwerken
-                                </button>
-                            </div>
-                        </form>
-
-                        <hr class="my-4">
-
-                        <!-- Wachtwoord wijzigen -->
-                        <form method="POST" action="{{ route('profile.update.password') }}">
-                            @csrf
-                            @method('PUT')
-                            
-                            <h5 class="mb-3">Wachtwoord wijzigen</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Huidig wachtwoord</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       name="current_password" required>
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Nieuw wachtwoord</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                       name="password" required>
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Bevestig nieuw wachtwoord</label>
-                                <input type="password" class="form-control" 
-                                       name="password_confirmation" required>
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-key"></i> Wachtwoord bijwerken
-                                </button>
-                            </div>
-                        </form>
-                    @endif
+    <div class="min-h-screen bg-black">
+        <!-- Hero Section -->
+        <section class="pt-32">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(01)</p>
+                    <h1 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                        ACCOUNT<br>INSTELLINGEN
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-gray-300 font-light tracking-wide mb-8">
+                        Beheer je account instellingen en persoonlijke gegevens
+                    </p>
+                    <div class="w-32 h-1 bg-white mx-auto"></div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Profile Forms Section -->
+        <section class="pb-32">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                <!-- Success Message -->
+                @if(session('success'))
+                    <div class="bg-green-900/50 border border-green-800 text-green-200 px-6 py-4 mb-8 rounded-lg">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <!-- Error Messages -->
+                @if ($errors->any())
+                    <div class="bg-red-900/50 border border-red-800 text-red-200 px-6 py-4 mb-8 rounded-lg">
+                        <ul class="mb-0 space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(Auth::guard('mechanic')->check())
+                    <!-- Mechanic Profile Forms -->
+                    <div class="space-y-8">
+                        <!-- Personal Information Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.name') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">PERSOONLIJKE GEGEVENS</h2>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Naam</label>
+                                        <input type="text" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('name') border-red-500 @enderror" 
+                                               name="name" value="{{ old('name', $user->name) }}" required>
+                                        @error('name')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Telefoonnummer</label>
+                                        <input type="tel" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('telephone') border-red-500 @enderror" 
+                                               name="telephone" value="{{ old('telephone', $user->telephone) }}" required>
+                                        @error('telephone')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Bedrijfsnaam</label>
+                                        <input type="text" class="w-full bg-gray-800/50 border border-gray-700 text-gray-400 px-4 py-3 rounded-lg cursor-not-allowed" 
+                                               value="{{ $user->company_name }}" readonly>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">BTW nummer</label>
+                                        <input type="text" class="w-full bg-gray-800/50 border border-gray-700 text-gray-400 px-4 py-3 rounded-lg cursor-not-allowed" 
+                                               value="{{ $user->vat }}" readonly>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Adres</label>
+                                        <input type="text" class="w-full bg-gray-800/50 border border-gray-700 text-gray-400 px-4 py-3 rounded-lg cursor-not-allowed" 
+                                               value="{{ $user->adress }}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        Gegevens bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Email Update Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.email') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">E-MAILADRES WIJZIGEN</h2>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Nieuw e-mailadres</label>
+                                        <input type="email" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('email') border-red-500 @enderror" 
+                                               name="email" value="{{ old('email', $user->email) }}" required>
+                                        @error('email')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Huidig wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('current_password') border-red-500 @enderror" 
+                                               name="current_password" required>
+                                        @error('current_password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        E-mailadres bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Password Update Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.password') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">WACHTWOORD WIJZIGEN</h2>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Huidig wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('current_password') border-red-500 @enderror" 
+                                               name="current_password" required>
+                                        @error('current_password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Nieuw wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('password') border-red-500 @enderror" 
+                                               name="password" required>
+                                        @error('password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Bevestig nieuw wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300" 
+                                               name="password_confirmation" required>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        Wachtwoord bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <!-- Regular User Profile Forms -->
+                    <div class="space-y-8">
+                        <!-- Name Update Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.name') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">NAAM WIJZIGEN</h2>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Nieuwe naam</label>
+                                    <input type="text" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('name') border-red-500 @enderror" 
+                                           name="name" value="{{ old('name', $user->name) }}" required>
+                                    @error('name')
+                                        <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        Naam bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Email Update Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.email') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">E-MAILADRES WIJZIGEN</h2>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Nieuw e-mailadres</label>
+                                        <input type="email" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('email') border-red-500 @enderror" 
+                                               name="email" value="{{ old('email', $user->email) }}" required>
+                                        @error('email')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Huidig wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('current_password') border-red-500 @enderror" 
+                                               name="current_password" required>
+                                        @error('current_password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        E-mailadres bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Password Update Form -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                            <form method="POST" action="{{ route('profile.update.password') }}">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="text-center mb-8">
+                                    <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">WACHTWOORD WIJZIGEN</h2>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Huidig wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('current_password') border-red-500 @enderror" 
+                                               name="current_password" required>
+                                        @error('current_password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Nieuw wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('password') border-red-500 @enderror" 
+                                               name="password" required>
+                                        @error('password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Bevestig nieuw wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300" 
+                                               name="password_confirmation" required>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        Wachtwoord bijwerken
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </section>
     </div>
-</div>
 @endsection
