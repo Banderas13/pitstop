@@ -10,7 +10,7 @@
             <h1 class="text-6xl lg:text-8xl font-black uppercase tracking-widest mb-8">
                 MIJN WAGENS
             </h1>
-            <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+            <p class="text-gray-400 text-xl lg:text-2xl mb-8 max-w-2xl mx-auto">
                 Beheer al je voertuigen op één plek. Voeg nieuwe wagens toe, bekijk details en houd de status van je voertuigen bij.
             </p>
             <div class="w-32 h-1 bg-white mx-auto mt-8"></div>
