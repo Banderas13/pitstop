@@ -10,6 +10,9 @@
             <h1 class="text-6xl lg:text-8xl font-black uppercase tracking-widest mb-8">
                 MIJN WAGENS
             </h1>
+            <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+                Beheer al je voertuigen op één plek. Voeg nieuwe wagens toe, bekijk details en houd de status van je voertuigen bij.
+            </p>
             <div class="w-32 h-1 bg-white mx-auto mt-8"></div>
         </div>
 
@@ -29,7 +32,7 @@
         @if($cars->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($cars as $car)
-                    <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg h-full flex flex-col">
+                    <div class="p-8 h-full flex flex-col">
                         <!-- Car Header -->
                         <div class="border-b border-gray-700 pb-4 mb-6">
                             <h3 class="text-xl font-bold uppercase tracking-wider text-white mb-2">
