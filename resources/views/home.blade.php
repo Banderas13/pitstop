@@ -27,84 +27,141 @@
                 </div>
             </section>
 
-            <!-- Cases and Cars Section -->
-            <section>
+            <!-- Cases Section -->
+            <section class="py-32">
                 <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <!-- Cases Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-18 items-center">
                         <div>
-                            <div class="text-center mb-8">
-                                <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(01)</p>
-                                <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">JOUW CASES</h2>
-                            </div>
-                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
-                                <div class="space-y-4 mb-8">
-                                    @if ($cases->isEmpty())
-                                        <p class="text-gray-400 text-center">Geen cases gevonden</p>
-                                    @else
+                            <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(01)</p>
+                            <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                                JOUW<br>CASES
+                            </h2>
+                            <div class="mb-8">
+                                @if ($cases->isEmpty())
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">GEEN ACTIEVE CASES</h3>
+                                        <p class="text-gray-400">Start een nieuwe service aanvraag</p>
+                                    </div>
+                                @else
+                                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                                         @foreach($cases as $case)
-                                            <div class="border-l-2 border-chiffon pl-4">
-                                                <p class="text-gray-300 mb-2 text-xl">
-                                                    Service bij <span class="text-pblue font-semibold">{{ $case->mechanic ? $case->mechanic->company_name : 'Onbekende monteur' }}</span> 
-                                                    voor uw <span class="text-chiffon">{{ $case->car && $case->car->type ? $case->car->type->brand->name . ' ' . $case->car->type->name : 'voertuig' }}</span>
+                                            <div class="border-l-2 border-chiffon pl-6">
+                                                <h3 class="text-xl font-semibold text-pblue mb-2">
+                                                    {{ $case->mechanic ? $case->mechanic->company_name : 'ONBEKENDE MONTEUR' }}
+                                                </h3>
+                                                <p class="text-gray-400 text-lg mb-2">
+                                                    Service voor {{ $case->car && $case->car->type ? $case->car->type->brand->name . ' ' . $case->car->type->name : 'voertuig' }}
                                                 </p>
-                                                <p class="text-gray-400 text-sm mb-2">
+                                                <p class="text-gray-500 text-ms mb-2">
                                                     @php
                                                         $parts = explode('MECHANIEK DIAGNOSE ===', $case->description);
                                                         $diagnosis = count($parts) > 1 ? trim($parts[1]) : $case->description;
                                                     @endphp
-                                                    {{ $diagnosis }}
+                                                    {{ Str::limit($diagnosis, 60) }}
                                                 </p>
-                                                <span class="text-xs text-pblue uppercase font-semibold">
+                                                <span class="text-ms text-chiffon uppercase font-semibold">
                                                     @if($case->approval)
-                                                        Goedgekeurd
+                                                        ✓ Goedgekeurd
                                                     @else
-                                                        In behandeling
+                                                        ⏳ In behandeling
                                                     @endif
                                                 </span>
                                             </div>
                                         @endforeach
-                                    @endif
-                                </div>
-                                <div class="text-center">
-                                    <a href="{{ route('cases.index') }}" class="inline-block bg-pblue text-black px-6 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
-                                        NAAR CASES
-                                    </a>
-                                </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div>
+                                <a href="{{ route('cases.index') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
+                                    BEHEER CASES
+                                </a>
                             </div>
                         </div>
-
-                        <!-- Cars Section -->
-                        <div>
-                            <div class="text-center mb-8">
-                                <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(02)</p>
-                                <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">JOUW WAGENS</h2>
-                            </div>
-                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
-                                <div class="mb-8">
-                                    @if ($cars->isEmpty())
-                                        <p class="text-gray-400 text-center">Geen wagens gevonden</p>
+                        <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-pblue rounded-full mx-auto mb-6 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">SERVICE STATUS</h3>
+                                <p class="text-gray-400">
+                                    @if($cases->isEmpty())
+                                        Klaar voor nieuwe service aanvragen
                                     @else
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            @foreach($cars as $car)
-                                                <div class="border-l-2 border-chiffon pl-4">
-                                                    <p class="text-gray-300">{{ $car->type->brand->name }} {{ $car->type->name }}</p>
-                                                    <p class="text-sm text-gray-500 mb-2">{{ $car->numberplate }} ({{ $car->year }})</p>
-                                                    @if($car->cases()->where('approval', false)->exists())
-                                                        <span class="inline-block bg-yellow-600 text-black px-2 py-1 text-xs uppercase tracking-wide rounded">In Service</span>
-                                                    @else
-                                                        <span class="inline-block bg-green-600 text-white px-2 py-1 text-xs uppercase tracking-wide rounded">Beschikbaar</span>
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        </div>
+                                        {{ $cases->count() }} {{ $cases->count() === 1 ? 'actieve case' : 'actieve cases' }}
                                     @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cars Section -->
+            <section class="py-32 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg lg:order-first">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-chiffon rounded-full mx-auto mb-6 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                                    </svg>
                                 </div>
-                                <div class="text-center">
-                                    <a href="{{ route('cars.index') }}" class="inline-block bg-pblue text-black px-6 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
-                                        NAAR WAGENS
-                                    </a>
-                                </div>
+                                <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">VOERTUIGEN</h3>
+                                <p class="text-gray-400">
+                                    @if($cars->isEmpty())
+                                        Geen voertuigen geregistreerd
+                                    @else
+                                        {{ $cars->count() }} {{ $cars->count() === 1 ? 'geregistreerd voertuig' : 'geregistreerde voertuigen' }}
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(02)</p>
+                            <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                                JOUW<br>WAGENS
+                            </h2>
+                            <div class="mb-8">
+                                @if ($cars->isEmpty())
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">GEEN VOERTUIGEN</h3>
+                                        <p class="text-gray-400">Voeg je eerste voertuig toe om te beginnen</p>
+                                    </div>
+                                @else
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        @foreach($cars as $car)
+                                            <div class="border-l-2 border-chiffon pl-6">
+                                                <h3 class="text-lg font-semibold text-pblue mb-2">
+                                                    {{ $car->type->brand->name }} {{ $car->type->name }}
+                                                </h3>
+                                                <p class="text-gray-400 mb-2">
+                                                    {{ $car->numberplate }} • Bouwjaar {{ $car->year }}
+                                                </p>
+                                                <span class="text-xs uppercase font-semibold
+                                                    @if($car->cases()->where('approval', false)->exists())
+                                                        text-yellow-400
+                                                    @else
+                                                        text-green-400
+                                                    @endif
+                                                ">
+                                                    @if($car->cases()->where('approval', false)->exists())
+                                                        🔧 In Service
+                                                    @else
+                                                        ✓ Beschikbaar
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                            <div>
+                                <a href="{{ route('cars.index') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
+                                    BEHEER WAGENS
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -122,7 +179,7 @@
                     </div>
                     
                     <div class="max-w-4xl mx-auto">
-                        <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg">
+                        
                             <div class="space-y-6 mb-12">
                                 @if(isset($mechanics) && !$mechanics->isEmpty())
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -142,7 +199,7 @@
                                     NAAR MECHANIEKERS
                                 </a>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
             </section>
