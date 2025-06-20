@@ -22,3 +22,22 @@ chiffon: #FEF6C9 ACCENT
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Custom scrollbar styles for open cases container */
+.cases-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cases-scrollbar::-webkit-scrollbar-track {
+    background: #0D1821; /* midnight color */
+    border-radius: 4px;
+}
+
+.cases-scrollbar::-webkit-scrollbar-thumb {
+    background: #B4CDED; /* pblue color */
+    border-radius: 4px;
+}
+
+.cases-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #FEF6C9; /* chiffon color on hover */
+}
