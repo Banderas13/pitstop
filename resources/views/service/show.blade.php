@@ -84,7 +84,7 @@
                                 </h2>
                             </div>
                             <div class="px-10 py-8">
-                                <div class="case-description text-gray-300 text-lg leading-relaxed">
+                                <div class="text-gray-300 text-lg">
                                     @php
                                         $parts = explode('MECHANIEK DIAGNOSE ===', $case->description);
                                         $diagnosis = count($parts) > 1 ? trim($parts[1]) : $case->description;
@@ -358,12 +358,7 @@
         </div>
     </div>
 
-    <style>
-        .case-description {
-            white-space: pre-wrap;
-            line-height: 1.8;
-        }
-    </style>
+
 
     @if($case->offer)
     <script>
