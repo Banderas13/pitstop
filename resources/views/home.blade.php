@@ -72,7 +72,7 @@
                                 @endif
                             </div>
                             <div>
-                                <a href="{{ route('cases.index') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
+                                <a href="{{ route('service.index') }}" class="inline-block bg-pblue text-black px-8 py-4 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300">
                                     BEHEER CASES
                                 </a>
                             </div>

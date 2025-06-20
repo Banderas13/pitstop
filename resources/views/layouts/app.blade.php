@@ -108,7 +108,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-4">
+    <div class="pt-16">
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -121,10 +121,8 @@
             </div>
         @endif
 
-    <!-- Page Content -->
-    <main class="pt-16">
         @yield('content')
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-black border-t border-gray-800">
