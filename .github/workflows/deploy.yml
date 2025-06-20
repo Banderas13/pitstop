@@ -14,6 +14,18 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install Node.js dependencies
+        run: npm ci
+        
+      - name: Build assets
+        run: npm run build
+          
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.8.0
         with:

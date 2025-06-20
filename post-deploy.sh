@@ -2,10 +2,10 @@
 # Laravel post-deployment script
 
 # Go to the application directory
-cd ~subsite/pitstop.be
+cd subsites/pitstop.be
 
 # Basic deployment confirmation
-echo "Files deployed successfully to subsite/pitstop.be"
+echo "Files deployed successfully to subsites/pitstop.be"
 
 # Check if .env file exists, if not notify to create one
 if [ ! -f .env ]; then
@@ -22,15 +22,7 @@ echo "📦 Running Laravel deployment commands..."
 
 # Install/update PHP dependencies with Composer
 echo "🔄 Updating Composer dependencies..."
-composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Install Node.js dependencies
-echo "🔄 Installing Node.js dependencies..."
-npm ci --only=production
-
-# Build assets for production
-echo "🏗️ Building production assets..."
-npm run build
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
 # Clear all caches
 php artisan cache:clear
