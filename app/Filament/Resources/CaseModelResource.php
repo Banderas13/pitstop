@@ -26,6 +26,9 @@ use Filament\Notifications\Notification;
 use App\Models\Offer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
+use Illuminate\Database\Eloquent\Model;
 
 class CaseModelResource extends Resource
 {
@@ -43,10 +46,24 @@ class CaseModelResource extends Resource
     {
         return $form
         ->schema([
-            TextInput::make('description')
+            Forms\Components\Textarea::make('description')
                 ->required()
-                ->maxLength(255)
-                ->label('Case Description'),
+                ->label('Case Description')
+                ->rows(10)
+                ->columnSpanFull()
+                ->formatStateUsing(function ($state) {
+                    if (empty($state)) return '';
+                    
+                    // Split into customer and mechanic sections
+                    $parts = explode('=== MECHANIEK DIAGNOSE ===', $state);
+                    if (count($parts) !== 2) return $state;
+                    
+                    $customerPart = str_replace('=== KLANT BESCHRIJVING ===', '', $parts[0]);
+                    return "KLANT BESCHRIJVING:\n" . trim($customerPart) . "\n\nMECHANIEK DIAGNOSE:\n" . trim($parts[1]);
+                })
+                ->dehydrateStateUsing(function ($state) {
+                    return $state; 
+                }),
 
             Forms\Components\DatePicker::make('created_at')
                 ->label('Case Date')
@@ -183,6 +200,30 @@ class CaseModelResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('description')
+                    ->formatStateUsing(function ($state) {
+                        if (empty($state)) return '';
+                        
+                        // Split and get only mechanic diagnosis
+                        $parts = explode('=== MECHANIEK DIAGNOSE ===', $state);
+                        if (count($parts) !== 2) return $state;
+                        
+                        $text = trim($parts[1]);
+                        if (strlen($text) > 30) {
+                            $text = substr($text, 0, 27) . '...';
+                        }
+                        return nl2br($text);
+                    })
+                    ->html()
+                    ->searchable()
+                    ->wrap()
+                    ->label('Description')
+                    ->tooltip(function (Model $record): ?string {
+                        $parts = explode('=== MECHANIEK DIAGNOSE ===', $record->description);
+                        if (count($parts) !== 2) return $record->description;
+                        return trim($parts[1]);
+                    }),
+                
                 Tables\Columns\TextColumn::make('car.type.brand.name')
                     ->searchable()
                     ->sortable()

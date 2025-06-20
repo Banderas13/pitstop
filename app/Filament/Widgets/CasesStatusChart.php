@@ -52,7 +52,21 @@ class CasesStatusChart extends ChartWidget
                     'display' => true,
                     'position' => 'bottom',
                 ],
+                'tooltip' => [
+                    'enabled' => true,
+                ],
             ],
+            'scales' => [
+                'x' => [
+                    'display' => false,
+                ],
+                'y' => [
+                    'display' => false,
+                ],
+            ],
+            'responsive' => true,
+            'maintainAspectRatio' => false,
+            'cutout' => '40%',
         ];
     }
 } 
