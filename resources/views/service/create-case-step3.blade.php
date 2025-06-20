@@ -233,49 +233,6 @@
             </div>
         </section>
     </div>
-
-    <style>
-        .upload-area.drag-over {
-            background-color: rgba(59, 130, 246, 0.1);
-            border-color: #3b82f6 !important;
-        }
-        
-        .preview-image {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #374151;
-        }
-        
-        .preview-card {
-            position: relative;
-        }
-        
-        .remove-file {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #dc2626;
-            color: white;
-            border: 2px solid white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .file-size {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-    </style>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Load session data and display summary
@@ -306,17 +263,20 @@
         // Drag and drop handlers
         function handleDragOver(e) {
             e.preventDefault();
-            e.currentTarget.classList.add('drag-over');
+            e.currentTarget.classList.add('bg-blue-500/10', 'border-blue-500');
+            e.currentTarget.classList.remove('border-gray-600');
         }
 
         function handleDragLeave(e) {
             e.preventDefault();
-            e.currentTarget.classList.remove('drag-over');
+            e.currentTarget.classList.remove('bg-blue-500/10', 'border-blue-500');
+            e.currentTarget.classList.add('border-gray-600');
         }
 
         function handleDrop(e, type) {
             e.preventDefault();
-            e.currentTarget.classList.remove('drag-over');
+            e.currentTarget.classList.remove('bg-blue-500/10', 'border-blue-500');
+            e.currentTarget.classList.add('border-gray-600');
             
             const files = Array.from(e.dataTransfer.files);
             processFiles(files, type);
@@ -393,23 +353,23 @@
                 
                 selectedPhotos.forEach((file, index) => {
                     const col = document.createElement('div');
-                    col.className = 'preview-card';
+                    col.className = 'relative';
                     
                     const img = document.createElement('img');
-                    img.className = 'preview-image';
+                    img.className = 'w-full h-20 object-cover rounded-lg border-2 border-gray-600';
                     img.src = URL.createObjectURL(file);
                     
                     const removeBtn = document.createElement('div');
-                    removeBtn.className = 'remove-file';
+                    removeBtn.className = 'absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-600 text-white border-2 border-white cursor-pointer flex items-center justify-center text-sm font-bold hover:bg-red-700 transition-colors duration-300';
                     removeBtn.innerHTML = '×';
                     removeBtn.onclick = () => removePhoto(index);
                     
                     const fileName = document.createElement('div');
-                    fileName.className = 'file-size text-center mt-1 text-white';
+                    fileName.className = 'text-xs text-gray-400 text-center mt-1 text-white';
                     fileName.textContent = `${file.name.substring(0, 15)}${file.name.length > 15 ? '...' : ''}`;
                     
                     const fileSize = document.createElement('div');
-                    fileSize.className = 'file-size text-center';
+                    fileSize.className = 'text-xs text-gray-400 text-center';
                     fileSize.textContent = formatFileSize(file.size);
                     
                     col.appendChild(img);
@@ -439,7 +399,7 @@
                     const fileInfo = document.createElement('div');
                     fileInfo.innerHTML = `
                         <div class="text-white font-medium">${file.name}</div>
-                        <small class="text-gray-400">${formatFileSize(file.size)}</small>
+                        <small class="text-xs text-gray-400">${formatFileSize(file.size)}</small>
                     `;
                     
                     const removeBtn = document.createElement('button');
