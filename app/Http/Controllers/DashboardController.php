@@ -20,7 +20,7 @@ class DashboardController extends Controller
             $mechanicCases = [];
         }
         elseif($mechanic != null){
-            $mechanicCases = $mechanic->cases()->with(['user', 'car.type.brand'])->where('approval', true)->get();
+            $mechanicCases = $mechanic->cases()->with(['user', 'car.type.brand'])->get();
             $cars = [];
             $cases = [];
             $mechanics = [];
