@@ -219,6 +219,56 @@
                     <div class="w-32 h-1 bg-white mx-auto mt-8"></div>
                 </div>
 
+                <!-- Statistics Section -->
+                <section class="mb-20">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        <div class="border-l-4 border-chiffon p-8 ">
+                            <div class="text-center">
+                                <h6 class="text-sm uppercase tracking-widest text-gray-400 mb-2">
+                                    <span class="text-chiffon">Openstaande </span>Cases
+                                </h6>
+                                <h3 class="text-3xl font-bold text-chiffon">
+                                    @if(isset($mechanicCases))
+                                        {{ $mechanicCases->where('approval', false)->count() }}
+                                    @else
+                                        0
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-caribbean p-8 ">
+                            <div class="text-center">
+                                <h6 class="text-sm uppercase tracking-widest text-gray-400 mb-2">
+                                    <span class="text-caribbean">Afgehandelde </span>Cases
+                                </h6>
+                                <h3 class="text-3xl font-bold text-caribbean">
+                                    @if(isset($mechanicCases))
+                                        {{ $mechanicCases->where('approval', true)->count() }}
+                                    @else
+                                        0
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="border-l-4 border-pblue p-8 ">
+                            <div class="text-center">
+                                <h6 class="text-sm uppercase tracking-widest text-gray-400 mb-2">
+                                    <span class="text-pblue">Totaal </span>Cases
+                                </h6>
+                                <h3 class="text-3xl font-bold text-pblue">
+                                    @if(isset($mechanicCases))
+                                        {{ $mechanicCases->count() }}
+                                    @else
+                                        0
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Cases Section -->
                 <div class="max-w-4xl mx-auto">
                     <div class="bg-gray-900/80 backdrop-blur-sm border border-gray-800 p-12 rounded-lg">
@@ -228,12 +278,12 @@
                         <div class="space-y-6 mb-12">
                             @if(isset($mechanicCases) && !$mechanicCases->isEmpty())
                                 @foreach($mechanicCases as $case)
-                                    <div class="border-l-2 border-chiffon pl-4">
-                                        <p class="text-gray-300 mb-2 text-xl">
-                                            Service voor <span class="text-pblue font-semibold">{{ $case->user ? $case->user->name : 'Onbekende gebruiker' }}</span> 
-                                            en zijn <span class="text-chiffon">{{ $case->car && $case->car->type ? $case->car->type->brand->name . ' ' . $case->car->type->name . ' (' . $case->car->numberplate . ')' : 'voertuig' }}</span>
+                                    <a href="{{ route('service.show', $case->id) }}" class="block border-l-2 border-chiffon pl-4 py-4 rounded-r-lg transition-all duration-300 hover:bg-gray-800/30 hover:border-chiffon hover:shadow-lg cursor-pointer group">
+                                        <p class="text-gray-300 mb-2 text-xl group-hover:text-white transition-colors duration-300">
+                                            Service voor <span class="text-pblue font-semibold group-hover:text-chiffon transition-colors duration-300">{{ $case->user ? $case->user->name : 'Onbekende gebruiker' }}</span> 
+                                            en zijn <span class="text-chiffon group-hover:text-pblue transition-colors duration-300">{{ $case->car && $case->car->type ? $case->car->type->brand->name . ' ' . $case->car->type->name . ' (' . $case->car->numberplate . ')' : 'voertuig' }}</span>
                                         </p>
-                                        <p class="text-gray-400 text-sm mb-2">
+                                        <p class="text-gray-400 text-sm mb-2 group-hover:text-gray-300 transition-colors duration-300">
                                             @php
                                                 $description = $case->description;
                                                 $startMarker = 'KLANT BESCHRIJVING ===';
@@ -249,10 +299,21 @@
                                                     $clientDescription = $description;
                                                 }
                                             @endphp
-                                            {{ $clientDescription }}
+                                            {{ Str::limit($clientDescription, 80) }}
                                         </p>
-                                        <span class="text-xs text-pblue uppercase font-semibold">Goedgekeurd</span>
-                                    </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-xs text-pblue uppercase font-semibold group-hover:text-chiffon transition-colors duration-300">
+                                                @if($case->approval)
+                                                    ✓ Goedgekeurd
+                                                @else
+                                                    ⏳ In behandeling
+                                                @endif
+                                            </span>
+                                            <span class="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300 pr-4">
+                                                {{ $case->created_at->format('d-m-Y H:i') }}
+                                            </span>
+                                        </div>
+                                    </a>
                                 @endforeach
                             @else
                                 <p class="text-chiffon text-lg text-center">Geen open cases</p>
@@ -265,6 +326,120 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- How It Works for Mechanics Section -->
+                <!-- Professional Tools Section -->
+                <section class="py-32">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            <div>
+                                <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(01)</p>
+                                <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                                    PROFESSIONAL<br>TOOLS
+                                </h2>
+                                <div class="space-y-6">
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">DIRECTE COMMUNICATIE</h3>
+                                        <p class="text-gray-400">Ontvang service aanvragen van klanten en communiceer rechtstreeks via het platform</p>
+                                    </div>
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">VISUELE RAPPORTAGE</h3>
+                                        <p class="text-gray-400">Upload foto's van schade, reparatievoortgang en eindresultaat</p>
+                                    </div>
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">PROFESSIONELE FACTURATIE</h3>
+                                        <p class="text-gray-400">Verstuur PDF-facturen rechtstreeks naar klanten via het platform</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-pblue rounded-full mx-auto mb-6 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12,2A3,3 0 0,1 15,5V7A3,3 0 0,1 12,10A3,3 0 0,1 9,7V5A3,3 0 0,1 12,2M12,11C14.67,11 20,12.33 20,15V18A2,2 0 0,1 18,20H6A2,2 0 0,1 4,18V15C4,12.33 9.33,11 12,11Z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">PROFESSIONAL TOOLS</h3>
+                                    <p class="text-gray-400">Alles wat je nodig hebt voor professionele service</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Management Section -->
+                <section class="py-32 border-t border-gray-800">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            <div class="bg-gray-900/30 border border-gray-800 p-12 rounded-lg lg:order-first">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-chiffon rounded-full mx-auto mb-6 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M17,12V7H7V12H17M15,10H9V9H15V10Z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-2xl font-bold uppercase tracking-wider text-white mb-4">CASE MANAGEMENT</h3>
+                                    <p class="text-gray-400">Beheer al je cases op één centrale locatie</p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(02)</p>
+                                <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                                    CASE<br>MANAGEMENT
+                                </h2>
+                                <div class="space-y-6">
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">REAL-TIME UPDATES</h3>
+                                        <p class="text-gray-400">Klanten ontvangen direct meldingen bij nieuwe berichten en updates</p>
+                                    </div>
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">OVERZICHTELIJK DASHBOARD</h3>
+                                        <p class="text-gray-400">Zie in één oogopslag alle openstaande en afgehandelde cases</p>
+                                    </div>
+                                    <div class="border-l-2 border-chiffon pl-6">
+                                        <h3 class="text-lg font-semibold text-pblue mb-2">SECURE PLATFORM</h3>
+                                        <p class="text-gray-400">Veilige communicatie en bestandsuitwisseling tussen jou en je klanten</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Workflow Section -->
+                <section class="py-32 border-t border-gray-800">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+                        <div class="mb-20">
+                            <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">(03)</p>
+                            <h2 class="text-4xl lg:text-6xl font-black uppercase tracking-wider mb-8">
+                                WORKFLOW VOOR<br>MECHANIEKERS
+                            </h2>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                                <div class="text-3xl font-bold text-white mb-4">01</div>
+                                <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">ONTVANG AANVRAAG</h3>
+                                <p class="text-gray-400">Klant stuurt service aanvraag met beschrijving en foto's</p>
+                            </div>
+                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                                <div class="text-3xl font-bold text-white mb-4">02</div>
+                                <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">DIAGNOSE & OFFERTE</h3>
+                                <p class="text-gray-400">Stel diagnose en stuur een offerte naar de klant</p>
+                            </div>
+                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                                <div class="text-3xl font-bold text-white mb-4">03</div>
+                                <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">UITVOEREN WERK</h3>
+                                <p class="text-gray-400">Voer de reparatie uit en deel voortgangsfoto's</p>
+                            </div>
+                            <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg">
+                                <div class="text-3xl font-bold text-white mb-4">04</div>
+                                <h3 class="text-lg font-semibold text-chiffon mb-4 uppercase tracking-wide">AFRONDING</h3>
+                                <p class="text-gray-400">Verstuur factuur en sluit de case af</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     @else
