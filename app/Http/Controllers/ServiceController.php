@@ -307,23 +307,53 @@ class ServiceController extends Controller
 
     private function handleManualOffer(Request $request)
     {
-        // Validate manual offer data
-        $request->validate([
-            'parts' => 'nullable|array',
-            'parts.*.name' => 'required_with:parts|string|max:255',
-            'parts.*.quantity' => 'required_with:parts|numeric|min:1',
-            'parts.*.price' => 'required_with:parts|numeric|min:0',
-            'labour' => 'nullable|array',
-            'labour.*.name' => 'required_with:labour|string|max:255',
-            'labour.*.quantity' => 'required_with:labour|numeric|min:1',
-            'labour.*.price' => 'required_with:labour|numeric|min:0',
-        ]);
-
+        // Get raw input data
         $parts = $request->input('parts', []);
         $labour = $request->input('labour', []);
         
+        // Filter out empty items and validate only non-empty ones
+        $validParts = [];
+        $validLabour = [];
+        
+        // Process parts
+        foreach ($parts as $part) {
+            if (!empty($part['name']) || !empty($part['quantity']) || !empty($part['price'])) {
+                $validParts[] = $part;
+            }
+        }
+        
+        // Process labour
+        foreach ($labour as $labourItem) {
+            if (!empty($labourItem['name']) || !empty($labourItem['quantity']) || !empty($labourItem['price'])) {
+                $validLabour[] = $labourItem;
+            }
+        }
+        
         // Check if at least one item is provided
-        if (empty($parts) && empty($labour)) {
+        if (empty($validParts) && empty($validLabour)) {
+            return redirect()->back()->with('error', 'Voeg minimaal één onderdeel of arbeid toe.');
+        }
+        
+        // Simple validation - just check if we have at least one valid item
+        $hasValidData = false;
+        
+        foreach ($parts as $part) {
+            if (!empty($part['name']) && !empty($part['quantity']) && !empty($part['price'])) {
+                $hasValidData = true;
+                break;
+            }
+        }
+        
+        if (!$hasValidData) {
+            foreach ($labour as $labourItem) {
+                if (!empty($labourItem['name']) && !empty($labourItem['quantity']) && !empty($labourItem['price'])) {
+                    $hasValidData = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!$hasValidData) {
             return redirect()->back()->with('error', 'Voeg minimaal één onderdeel of arbeid toe.');
         }
 
