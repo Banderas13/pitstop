@@ -271,11 +271,11 @@
 
                 <!-- Cases Section -->
                 <div class="max-w-4xl mx-auto">
-                    <div class="bg-gray-900/80 backdrop-blur-sm border border-gray-800 p-12 rounded-lg">
+                    <div class="bg-gray-900/80 backdrop-blur-sm border border-gray-800 p-12 rounded-lg ">
                         <div class="text-center mb-8">
                             <h2 class="text-3xl font-bold uppercase tracking-wider text-white">OPEN CASES</h2>
                         </div>
-                        <div class="space-y-6 mb-12">
+                        <div class="space-y-6 mb-12 max-h-96 overflow-y-auto pr-2 cases-scrollbar">
                             @if(isset($mechanicCases) && !$mechanicCases->isEmpty())
                                 @foreach($mechanicCases as $case)
                                     <a href="{{ route('service.show', $case->id) }}" class="block border-l-2 border-chiffon pl-4 py-4 rounded-r-lg transition-all duration-300 hover:bg-gray-800/30 hover:border-chiffon hover:shadow-lg cursor-pointer group">
