@@ -267,42 +267,7 @@
         </section>
     </div>
 
-    <style>
-        .preview-image {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #374151;
-        }
-        
-        .preview-card {
-            position: relative;
-        }
-        
-        .remove-file {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #dc2626;
-            color: white;
-            border: 2px solid white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .file-size {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-    </style>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -403,10 +368,10 @@
                 mediaFiles.photos.forEach((photo, index) => {
                     if (index < 6) { // Show max 6 photos in preview
                         const photoDiv = document.createElement('div');
-                        photoDiv.className = 'preview-card';
+                        photoDiv.className = 'relative';
                         photoDiv.innerHTML = `
                             <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50">
-                                <img src="/storage/${photo.path}" class="preview-image" alt="Photo ${index + 1}">
+                                <img src="/storage/${photo.path}" class="w-full h-20 object-cover rounded-lg border-2 border-gray-700" alt="Photo ${index + 1}">
                                 <div class="text-center text-white text-xs mt-1">${photo.original_name.substring(0, 10)}${photo.original_name.length > 10 ? '...' : ''}</div>
                             </div>
                         `;
@@ -416,9 +381,9 @@
                 
                 if (mediaFiles.photos.length > 6) {
                     const moreDiv = document.createElement('div');
-                    moreDiv.className = 'preview-card';
+                    moreDiv.className = 'relative';
                     moreDiv.innerHTML = `
-                        <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50 flex items-center justify-content-center h-24">
+                        <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50 flex items-center justify-center h-24">
                             <div class="text-center text-gray-400 text-xs">+${mediaFiles.photos.length - 6} meer</div>
                         </div>
                     `;
@@ -432,7 +397,7 @@
                 mediaFiles.videos.forEach((video, index) => {
                     if (index < 3) { // Show max 3 videos in preview
                         const videoDiv = document.createElement('div');
-                        videoDiv.className = 'preview-card';
+                        videoDiv.className = 'relative';
                         videoDiv.innerHTML = `
                             <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50">
                                 <video class="w-full h-16 object-cover rounded" muted>
@@ -448,9 +413,9 @@
                 
                 if (mediaFiles.videos.length > 3) {
                     const moreDiv = document.createElement('div');
-                    moreDiv.className = 'preview-card';
+                    moreDiv.className = 'relative';
                     moreDiv.innerHTML = `
-                        <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50 flex items-center justify-content-center h-20">
+                        <div class="border border-gray-700 rounded-lg p-2 bg-gray-800/50 flex items-center justify-center h-20">
                             <div class="text-center text-gray-400 text-xs">+${mediaFiles.videos.length - 3} meer</div>
                         </div>
                     `;
@@ -495,7 +460,7 @@
             // Get offer data from sessionStorage
             const offerData = JSON.parse(sessionStorage.getItem('case_offer_data') || '{}');
             
-            if (offerData.type === 'manual' && offerData.items && offerData.items.length > 0) {
+            if (offerData && offerData.type === 'manual' && offerData.items && offerData.items.length > 0) {
                 // Display manual offer items
                 offerItemsBody.innerHTML = '';
                 
