@@ -87,4 +87,26 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Je e-mailadres is succesvol bijgewerkt.');
     }
+
+    public function deleteAccount(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+        ]);
+
+        if (Auth::guard('mechanic')->check()) {
+            $user = Auth::guard('mechanic')->user();
+            Auth::guard('mechanic')->logout();
+            $user->delete();
+        } else {
+            $user = Auth::guard('web')->user();
+            Auth::guard('web')->logout();
+            $user->delete();
+        }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'Je account is succesvol verwijderd.');
+    }
 } 

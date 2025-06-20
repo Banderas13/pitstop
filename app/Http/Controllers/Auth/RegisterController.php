@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+
 class RegisterController extends Controller
 {
     /**
@@ -101,7 +103,10 @@ class RegisterController extends Controller
         // Log the user in
         auth()->login($user);
 
-        return redirect('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd als gebruiker.');
+        // Send verification email
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice')->with('success', 'Welkom! U bent succesvol geregistreerd. Controleer uw e-mail om uw account te verifiëren.');
     }
 
     /**
@@ -119,9 +124,13 @@ class RegisterController extends Controller
             'telephone' => $request->telephone,
         ]);
 
+        // Log the mechanic in
         Auth::guard('mechanic')->login($mechanic);
         $request->session()->put('user_type', 'mechanic');
 
-        return redirect('/')->with('success', 'Welkom! U bent succesvol geregistreerd en ingelogd als monteur.');
+        // Send verification email
+        event(new Registered($mechanic));
+
+        return redirect()->route('verification.notice')->with('success', 'Welkom! U bent succesvol geregistreerd als monteur. Controleer uw e-mail om uw account te verifiëren.');
     }
 }

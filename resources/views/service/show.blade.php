@@ -267,7 +267,7 @@
                                 @if($case->user->bday)
                                     <div>
                                         <p class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-medium">Geboortedatum</p>
-                                        <p class="text-white text-lg">{{ $case->user->bday->format('d-m-Y') }}</p>
+                                        <p class="text-white text-lg">{{ \Carbon\Carbon::parse($case->user->bday)->format('d-m-Y') }}</p>
                                     </div>
                                 @endif
                             </div>

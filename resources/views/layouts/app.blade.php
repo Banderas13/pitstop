@@ -107,6 +107,20 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
+    <div class="container mt-4">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
     <!-- Page Content -->
     <main class="pt-16">
         @yield('content')
@@ -130,6 +144,7 @@
                         Over ons
                     </a>
                 </div>
+
             </div>
         </div>
     </footer>

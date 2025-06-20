@@ -13,10 +13,9 @@ class DashboardController extends Controller
         $mechanic = Auth::guard('mechanic')->user();
         
         if($user != null){
-            $cars = $user->cars()->with(['type.brand', 'cases'])->get();
-            $cases = $user->cases()->with(['mechanic', 'car.type.brand'])->get();
-            // Instead of using the relationship, we'll get all mechanics
-            $mechanics = Mechanic::all();
+            $cars = $user->cars;
+            $cases = $user->cases;
+            $mechanics = $user->mechanics;
             $mechanicCases = [];
         }
         elseif($mechanic != null){
