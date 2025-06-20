@@ -3,114 +3,129 @@
 @section('title', 'Nieuwe Case Maken')
 
 @section('content')
-    <!-- Progress Bar -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Nieuwe Case Maken</h4>
-                    <div class="progress mb-3" style="height: 8px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 20%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5"></div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <small class="text-primary fw-bold">Stap 1: Gebruiker & Voertuig</small>
-                        <small class="text-muted">Stap 2: Probleem Beschrijving</small>
-                        <small class="text-muted">Stap 3: Media Upload</small>
-                        <small class="text-muted">Stap 4: Offerte Opstellen</small>
-                        <small class="text-muted">Stap 5: Versturen</small>
+    <div class="min-h-screen bg-black">
+        <!-- Progress Bar -->
+        <section class="pt-32 pb-8">
+            <div class="max-w-7xl mx-auto px-6 lg:px-9">
+                <div class=" overflow-hidden">
+                    <div class="p-8">
+                        <h1 class="text-4xl lg:text-6xl font-black uppercase tracking-widest mb-8 text-white text-center">
+                            NIEUWE CASE MAKEN
+                        </h1>
+                        <div class="w-full bg-gray-800 rounded-full h-2 mb-6">
+                            <div class="bg-pblue h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs uppercase tracking-wider">
+                            <span class="text-pblue font-bold">Stap 1: Gebruiker & Voertuig</span>
+                            <span class="text-gray-400">Stap 2: Probleem Beschrijving</span>
+                            <span class="text-gray-400">Stap 3: Media Upload</span>
+                            <span class="text-gray-400">Stap 4: Offerte Opstellen</span>
+                            <span class="text-gray-400">Stap 5: Versturen</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Step 1 Form -->
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-user-car me-2"></i>
-                        Stap 1: Kies Gebruiker en Voertuig
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form id="step1Form">
-                        @csrf
-                        <!-- User Selection -->
-                        <div class="mb-4">
-                            <label for="user_id" class="form-label fw-bold">
-                                <i class="fas fa-user me-2 text-primary"></i>
-                                Selecteer Gebruiker
-                            </label>
-                            <select class="form-select form-select-lg" id="user_id" name="user_id" required>
-                                <option value="">-- Kies een gebruiker --</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
-                                @endforeach
-                            </select>
-                            <div class="form-text">
-                                <i class="fas fa-info-circle me-1"></i>
-                                Selecteer de gebruiker voor wie je een case wilt aanmaken
-                            </div>
-                        </div>
-
-                        <!-- Car Selection (initially hidden) -->
-                        <div class="mb-4" id="car-selection" style="display: none;">
-                            <label for="car_id" class="form-label fw-bold">
-                                <i class="fas fa-car me-2 text-primary"></i>
-                                Selecteer Voertuig
-                            </label>
-                            <select class="form-select form-select-lg" id="car_id" name="car_id" required>
-                                <option value="">-- Kies een voertuig --</option>
-                            </select>
-                            <div class="form-text">
-                                <i class="fas fa-info-circle me-1"></i>
-                                Selecteer het voertuig waarvoor de service nodig is
-                            </div>
-                            
-                            <!-- Loading indicator -->
-                            <div id="cars-loading" style="display: none;" class="mt-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                    <small class="text-muted">Voertuigen laden...</small>
+        <!-- Step 1 Form -->
+        <section class="pb-16">
+            <div class="max-w-7xl mx-auto px-6 lg:px-9">
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg overflow-hidden">
+                    <div class="bg-pblue p-6">
+                        <h2 class="text-xl font-bold text-black uppercase tracking-wider flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                            </svg>
+                            Stap 1: Kies Gebruiker en Voertuig
+                        </h2>
+                    </div>
+                    <div class="p-8">
+                        <form id="step1Form">
+                            @csrf
+                            <!-- User Selection -->
+                            <div class="mb-8">
+                                <label for="user_id" class="block text-lg font-bold text-white mb-4 uppercase tracking-wider">
+                                    <svg class="w-5 h-5 inline mr-2 text-pblue" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                    </svg>
+                                    Selecteer Gebruiker
+                                </label>
+                                <select class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-4 rounded-lg focus:outline-none focus:border-pblue transition-colors duration-300" id="user_id" name="user_id" required>
+                                    <option value="">-- Kies een gebruiker --</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                                    @endforeach
+                                </select>
+                                <div class="mt-2 text-sm text-gray-400">
+                                    <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"/>
+                                    </svg>
+                                    Selecteer de gebruiker voor wie je een case wilt aanmaken
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Selected Information Display -->
-                        <div id="selection-summary" style="display: none;" class="alert alert-info">
-                            <h6 class="alert-heading">
-                                <i class="fas fa-check-circle me-2"></i>
-                                Geselecteerde Informatie
-                            </h6>
-                            <div id="selected-user-info"></div>
-                            <div id="selected-car-info"></div>
+                            <!-- Car Selection (initially hidden) -->
+                            <div class="mb-8" id="car-selection" style="display: none;">
+                                <label for="car_id" class="block text-lg font-bold text-white mb-4 uppercase tracking-wider">
+                                    <svg class="w-5 h-5 inline mr-2 text-pblue" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                                    </svg>
+                                    Selecteer Voertuig
+                                </label>
+                                <select class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-4 rounded-lg focus:outline-none focus:border-pblue transition-colors duration-300" id="car_id" name="car_id" required>
+                                    <option value="">-- Kies een voertuig --</option>
+                                </select>
+                                <div class="mt-2 text-sm text-gray-400">
+                                    <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"/>
+                                    </svg>
+                                    Selecteer het voertuig waarvoor de service nodig is
+                                </div>
+                                
+                                <!-- Loading indicator -->
+                                <div id="cars-loading" style="display: none;" class="mt-4">
+                                    <div class="flex items-center">
+                                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-pblue mr-3"></div>
+                                        <span class="text-sm text-gray-400">Voertuigen laden...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Selected Information Display -->
+                            <div id="selection-summary" style="display: none;" class="bg-chiffon/10 border border-chiffon/30 rounded-lg p-6">
+                                <h3 class="text-lg font-bold text-chiffon mb-4 uppercase tracking-wider flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 21H5V3H13V9H19Z"/>
+                                    </svg>
+                                    Geselecteerde Informatie
+                                </h3>
+                                <div id="selected-user-info" class="text-white mb-2"></div>
+                                <div id="selected-car-info" class="text-white"></div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Card Footer with Navigation -->
+                    <div class="bg-gray-800/50 border-t border-gray-700 p-6">
+                        <div class="flex justify-between">
+                            <a href="{{ route('service.index') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300">
+                                <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                                </svg>
+                                Terug naar Service
+                            </a>
+                            <button type="button" id="nextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300 disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed" disabled>
+                                Volgende Stap
+                                <svg class="w-4 h-4 inline ml-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+                                </svg>
+                            </button>
                         </div>
-                    </form>
-                </div>
-                
-                <!-- Card Footer with Navigation -->
-                <div class="card-footer bg-light">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('service.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>
-                            Terug naar Service
-                        </a>
-                        <button type="button" id="nextStepBtn" class="btn btn-primary" disabled>
-                            Volgende Stap
-                            <i class="fas fa-arrow-right ms-2"></i>
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-
-    <!-- Add FontAwesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -202,9 +217,18 @@
                 const carId = carSelect.value;
                 
                 if (userId && carId) {
+                    // Get user and car display names
+                    const selectedUserText = userSelect.options[userSelect.selectedIndex].text;
+                    const selectedCarText = carSelect.options[carSelect.selectedIndex].text;
+                    
+                    // Extract only the name part (before the email in parentheses)
+                    const userName = selectedUserText.split('(')[0].trim();
+                    
                     // Store selections in sessionStorage for the multi-step form
                     sessionStorage.setItem('case_user_id', userId);
                     sessionStorage.setItem('case_car_id', carId);
+                    sessionStorage.setItem('case_user_name', userName);
+                    sessionStorage.setItem('case_car_info', selectedCarText);
                     
                     // Navigate to step 2
                     window.location.href = '{{ route("service.create.step2") }}';
