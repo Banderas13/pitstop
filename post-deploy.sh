@@ -24,6 +24,14 @@ echo "📦 Running Laravel deployment commands..."
 echo "🔄 Updating Composer dependencies..."
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Install Node.js dependencies
+echo "🔄 Installing Node.js dependencies..."
+npm ci --only=production
+
+# Build assets for production
+echo "🏗️ Building production assets..."
+npm run build
+
 # Clear all caches
 php artisan cache:clear
 php artisan config:clear
