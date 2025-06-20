@@ -3,366 +3,440 @@
 @section('title', 'Nieuwe Case - Offerte Opstellen')
 
 @section('content')
-    <!-- Progress Bar -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Nieuwe Case Maken</h4>
-                    <div class="progress mb-3" style="height: 8px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5"></div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <small class="text-success">
-                            <i class="fas fa-check me-1"></i>
-                            Stap 1: Gebruiker & Voertuig
-                        </small>
-                        <small class="text-success">
-                            <i class="fas fa-check me-1"></i>
-                            Stap 2: Probleem Beschrijving
-                        </small>
-                        <small class="text-success">
-                            <i class="fas fa-check me-1"></i>
-                            Stap 3: Media Upload
-                        </small>
-                        <small class="text-primary fw-bold">Stap 4: Offerte Opstellen</small>
-                        <small class="text-muted">Stap 5: Versturen</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Step 4 Form -->
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <!-- VAT Toggle Card -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-1">
-                                <i class="fas fa-percent me-2 text-warning"></i>
-                                BTW Berekening
-                            </h6>
-                            <small class="text-muted">BTW tarief: 21%</small>
+    <div class="min-h-screen bg-black">
+        <!-- Progress Bar -->
+        <section class="pt-32 pb-8">
+            <div class="max-w-7xl mx-auto px-6 lg:px-9">
+                <div class=" overflow-hidden">
+                    <div class="p-8">
+                        <h1 class="text-4xl lg:text-6xl font-black uppercase tracking-widest mb-8 text-white text-center">
+                            NIEUWE CASE MAKEN
+                        </h1>
+                        <div class="w-full bg-gray-800 rounded-full h-2 mb-6">
+                            <div class="bg-pblue h-2 rounded-full transition-all duration-300" style="width: 80%"></div>
                         </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="vatToggle" checked>
-                            <label class="form-check-label fw-bold" for="vatToggle" id="vatLabel">
-                                Prijzen Exclusief BTW
-                            </label>
+                        <div class="flex justify-between text-xs uppercase tracking-wider">
+                            <span class="text-pblue font-bold">
+                                <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                                Stap 1: Gebruiker & Voertuig
+                            </span>
+                            <span class="text-pblue font-bold">
+                                <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                                Stap 2: Probleem Beschrijving
+                            </span>
+                            <span class="text-pblue font-bold">
+                                <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                                Stap 3: Media Upload
+                            </span>
+                            <span class="text-pblue font-bold">Stap 4: Offerte Opstellen</span>
+                            <span class="text-gray-400">Stap 5: Versturen</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Option Selection -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-file-invoice-dollar me-2"></i>
-                        Kies Offerte Methode
-                    </h5>
+        <!-- Step 4 Form -->
+        <section class="pb-16">
+            <div class="max-w-7xl mx-auto px-6 lg:px-9">
+                <!-- VAT Toggle Card -->
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg overflow-hidden mb-8">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1 uppercase tracking-wider flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-chiffon" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+                                    </svg>
+                                    BTW Berekening
+                                </h3>
+                                <p class="text-gray-400 text-sm">BTW tarief: 21%</p>
+                            </div>
+                            <div class="flex items-center">
+                                <input class="sr-only" type="checkbox" id="vatToggle" checked>
+                                <label for="vatToggle" class="relative flex items-center cursor-pointer">
+                                    <div class="w-12 h-6 bg-gray-600 rounded-full shadow-inner transition-all duration-300"></div>
+                                    <div class="absolute w-4 h-4 bg-white rounded-full shadow transition-all duration-300 left-1"></div>
+                                </label>
+                                <span class="ml-3 text-white font-bold uppercase tracking-wider text-sm" id="vatLabel">
+                                    Prijzen Exclusief BTW
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card h-100 option-card" id="manualOption">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-edit fa-3x text-primary mb-3"></i>
-                                    <h6>Handmatige Offerte</h6>
-                                    <p class="text-muted small">Voer onderdelen en arbeid handmatig in</p>
-                                    <button type="button" class="btn btn-primary" onclick="selectOption('manual')">
+
+                <!-- Option Selection -->
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg overflow-hidden mb-8">
+                    <div class="bg-pblue p-6">
+                        <h2 class="text-xl font-bold text-black uppercase tracking-wider flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            Kies Offerte Methode
+                        </h2>
+                    </div>
+                    <div class="p-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="option-card bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="manualOption">
+                                <div class="p-8 text-center">
+                                    <svg class="w-16 h-16 mx-auto text-pblue mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+                                    </svg>
+                                    <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wider">Handmatige Offerte</h3>
+                                    <p class="text-gray-400 text-sm mb-4">Voer onderdelen en arbeid handmatig in</p>
+                                    <button type="button" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="selectOption('manual')">
+                                        Selecteren
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="option-card bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="uploadOption">
+                                <div class="p-8 text-center">
+                                    <svg class="w-16 h-16 mx-auto text-pblue mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                    <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wider">Upload Externe Offerte</h3>
+                                    <p class="text-gray-400 text-sm mb-4">Upload een bestaand offerte bestand</p>
+                                    <button type="button" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="selectOption('upload')">
                                         Selecteren
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card h-100 option-card" id="uploadOption">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-upload fa-3x text-info mb-3"></i>
-                                    <h6>Upload Externe Offerte</h6>
-                                    <p class="text-muted small">Upload een bestaand offerte bestand</p>
-                                    <button type="button" class="btn btn-info" onclick="selectOption('upload')">
-                                        Selecteren
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Manual Offer Form -->
-            <div id="manualForm" style="display: none;">
-                <form method="POST" action="{{ route('service.store.step4') }}" id="step4Form">
-                    @csrf
-                    <input type="hidden" name="offer_type" value="manual">
-                    <input type="hidden" name="user_id" id="manual_user_id">
-                    <input type="hidden" name="car_id" id="manual_car_id">
-                    <input type="hidden" name="vat_enabled" id="manual_vat_enabled" value="1">
-                    
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="mb-0">
-                                <i class="fas fa-cogs me-2"></i>
-                                Onderdelen en Arbeid
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            
-                            <!-- Progress Summary -->
-                            <div class="alert alert-light border mb-4">
-                                <h6 class="mb-2">
-                                    <i class="fas fa-info-circle text-primary me-2"></i>
-                                    Case Overzicht
-                                </h6>
-                                <div id="progress-summary" class="small text-muted">
-                                    <div id="selected-user-display"></div>
-                                    <div id="selected-car-display"></div>
-                                    <div id="description-status" class="mt-1"></div>
-                                    <div id="media-status" class="mt-1"></div>
-                                </div>
+                <!-- Manual Offer Form -->
+                <div id="manualForm" style="display: none;">
+                    <form method="POST" action="{{ route('service.store.step4') }}" id="step4Form">
+                        @csrf
+                        <input type="hidden" name="offer_type" value="manual">
+                        <input type="hidden" name="user_id" id="manual_user_id">
+                        <input type="hidden" name="car_id" id="manual_car_id">
+                        <input type="hidden" name="vat_enabled" id="manual_vat_enabled" value="1">
+                        
+                        <div class="bg-gray-900/30 border border-gray-800 rounded-lg overflow-hidden">
+                            <div class="bg-caribbean p-6">
+                                <h2 class="text-xl font-bold text-white uppercase tracking-wider flex items-center">
+                                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                                    </svg>
+                                    Onderdelen en Arbeid
+                                </h2>
                             </div>
-
-                            <!-- Parts Section -->
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold">
-                                        <i class="fas fa-puzzle-piece me-2 text-warning"></i>
-                                        Onderdelen
-                                    </h6>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addItem('parts')">
-                                        <i class="fas fa-plus me-1"></i>
-                                        Onderdeel Toevoegen
-                                    </button>
+                            <div class="p-10">
+                                
+                                <!-- Selected Info Summary (from Previous Steps) -->
+                                <div class="bg-chiffon/10 border border-chiffon/30 rounded-lg p-8 mb-10">
+                                    <h3 class="text-lg font-bold text-chiffon mb-4 uppercase tracking-wider flex items-center">
+                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 21H5V3H13V9H19Z"/>
+                                        </svg>
+                                        Geselecteerde Informatie
+                                    </h3>
+                                    <div id="step1-summary" class="text-gray-300">
+                                        <div id="selected-user-display" class="text-white mb-2"></div>
+                                        <div id="selected-car-display" class="text-white"></div>
+                                    </div>
                                 </div>
-                                <div id="parts-container"></div>
-                            </div>
 
-                            <!-- Labour Section -->
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold">
-                                        <i class="fas fa-tools me-2 text-info"></i>
-                                        Arbeid
-                                    </h6>
-                                    <button type="button" class="btn btn-sm btn-outline-info" onclick="addItem('labour')">
-                                        <i class="fas fa-plus me-1"></i>
-                                        Arbeid Toevoegen
-                                    </button>
+                                <!-- Parts Section -->
+                                <div class="mb-10">
+                                    <div class="flex justify-between items-center mb-8">
+                                        <h3 class="text-lg font-bold text-white uppercase tracking-wider flex items-center">
+                                            <svg class="w-5 h-5 mr-2 text-chiffon" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M3,3H9L12,9L9,15H3V3M5,5V7H7V5H5M5,9V11H7V9H5M5,13V15H7V13H5M11,3H17L20,9L17,15H11L14,9L11,3M13,5V7H15V5H13M13,9V11H15V9H13M13,13V15H15V13H13Z"/>
+                                            </svg>
+                                            Onderdelen
+                                        </h3>
+                                        <button type="button" class="bg-pblue hover:bg-white text-black px-4 py-2 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="addItem('parts')">
+                                            <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                            </svg>
+                                            Onderdeel Toevoegen
+                                        </button>
+                                    </div>
+                                    <div id="parts-container"></div>
                                 </div>
-                                <div id="labour-container"></div>
-                            </div>
 
-                            <!-- Total Section -->
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h6 class="mb-2">Subtotaal:</h6>
-                                            <h6 class="mb-2" id="vatSection" style="display: none;">BTW (21%):</h6>
-                                            <h5 class="fw-bold text-primary">Totaal:</h5>
+                                <!-- Labour Section -->
+                                <div class="mb-10">
+                                    <div class="flex justify-between items-center mb-8">
+                                        <h3 class="text-lg font-bold text-white uppercase tracking-wider flex items-center">
+                                            <svg class="w-5 h-5 mr-2 text-chiffon" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M21.71,9.29L16.5,4.08C16.1,3.68 15.55,3.47 15,3.47H9A4,4 0 0,0 5,7.47V16.53A4,4 0 0,0 9,20.53H15C15.55,20.53 16.1,20.32 16.5,19.92L21.71,14.71C22.1,14.32 22.1,13.68 21.71,13.29L21.71,9.29M9,5.47H15L20,10.47L15,15.47H9A2,2 0 0,1 7,13.47V7.47A2,2 0 0,1 9,5.47M10,7.47V9.47H12V11.47H10V13.47H8V11.47H6V9.47H8V7.47H10Z"/>
+                                            </svg>
+                                            Arbeid
+                                        </h3>
+                                        <button type="button" class="bg-pblue hover:bg-white text-black px-4 py-2 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="addItem('labour')">
+                                            <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                            </svg>
+                                            Arbeid Toevoegen
+                                        </button>
+                                    </div>
+                                    <div id="labour-container"></div>
+                                </div>
+
+                                <!-- Total Section -->
+                                <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="text-white font-bold mb-2">Subtotaal:</h4>
+                                            <h4 class="text-white font-bold mb-2" id="vatSection" style="display: none;">BTW (21%):</h4>
+                                            <h3 class="text-xl font-bold text-pblue">Totaal:</h3>
                                         </div>
-                                        <div class="col-md-6 text-end">
-                                            <h6 class="mb-2">€<span id="subtotal">0.00</span></h6>
-                                            <h6 class="mb-2" id="vatAmount" style="display: none;">€<span id="vatValue">0.00</span></h6>
-                                            <h5 class="fw-bold text-primary">€<span id="total">0.00</span></h5>
+                                        <div class="text-right">
+                                            <h4 class="text-white font-bold mb-2">€<span id="subtotal">0.00</span></h4>
+                                            <h4 class="text-white font-bold mb-2" id="vatAmount" style="display: none;">€<span id="vatValue">0.00</span></h4>
+                                            <h3 class="text-xl font-bold text-pblue">€<span id="total">0.00</span></h3>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                            
+                            <!-- Manual Form Footer -->
+                            <div class="bg-gray-800/50 border-t border-gray-700 p-6">
+                                <div class="flex justify-between">
+                                    <a href="{{ route('service.create.step3') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300">
+                                        <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                                        </svg>
+                                        Vorige Stap
+                                    </a>
+                                    <div class="flex space-x-3">
+                                        <button type="button" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="resetForm()">
+                                            Reset
+                                        </button>
+                                        <button type="submit" id="nextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" disabled>
+                                            Offerte Genereren
+                                            <svg class="w-4 h-4 inline ml-2" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </form>
+                </div>
+
+                <!-- Upload Form -->
+                <div id="uploadForm" style="display: none;">
+                    <form method="POST" action="{{ route('service.store.step4') }}" enctype="multipart/form-data" id="uploadOfferForm">
+                        @csrf
+                        <input type="hidden" name="offer_type" value="upload">
+                        <input type="hidden" name="user_id" id="upload_user_id">
+                        <input type="hidden" name="car_id" id="upload_car_id">
                         
-                        <!-- Manual Form Footer -->
-                        <div class="card-footer bg-light">
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('service.create.step3') }}" class="btn btn-outline-secondary">
-                                    <i class="fas fa-arrow-left me-2"></i>
-                                    Vorige Stap
-                                </a>
-                                <div>
-                                    <button type="button" class="btn btn-outline-danger me-2" onclick="resetForm()">
-                                        <i class="fas fa-redo me-2"></i>
-                                        Reset
-                                    </button>
-                                    <button type="submit" id="nextStepBtn" class="btn btn-primary" disabled>
-                                        Offerte Genereren
-                                        <i class="fas fa-arrow-right ms-2"></i>
-                                    </button>
-                                </div>
+                        <div class="bg-gray-900/30 border border-gray-800 rounded-lg overflow-hidden">
+                            <div class="bg-caribbean p-6">
+                                <h2 class="text-xl font-bold text-white uppercase tracking-wider flex items-center">
+                                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                    Upload Externe Offerte
+                                </h2>
                             </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                            <div class="p-10">
+                                
+                                <!-- Upload Area -->
+                                <div class="upload-area border-2 border-dashed border-gray-600 rounded-lg p-10 text-center @error('offer_file') border-red-500 @enderror cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-800/30" 
+                                     id="offer-upload-area" 
+                                     ondrop="handleOfferDrop(event)" 
+                                     ondragover="handleDragOver(event)" 
+                                     ondragleave="handleDragLeave(event)">
+                                    <div class="upload-content">
+                                        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                        </svg>
+                                        <h3 class="text-white text-lg font-medium mb-2">Sleep offerte bestand hierheen of klik om te selecteren</h3>
+                                        <p class="text-gray-400 text-sm mb-4">
+                                            Ondersteunde formaten: PDF, DOC, DOCX<br>
+                                            Maximale bestandsgrootte: 10MB
+                                        </p>
+                                        <input type="file" 
+                                               class="hidden @error('offer_file') is-invalid @enderror" 
+                                               id="offer_file" 
+                                               name="offer_file" 
+                                               accept=".pdf,.doc,.docx"
+                                               onchange="handleOfferFileSelect(event)">
+                                        <button type="button" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="document.getElementById('offer_file').click()">
+                                            <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                                            </svg>
+                                            Selecteer Offerte Bestand
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- File Preview -->
+                                <div id="offer-preview" class="mt-6" style="display: none;">
+                                    <div class="bg-green-900/20 border border-green-700 rounded-lg p-6">
+                                        <h4 class="text-lg font-bold text-green-300 mb-4 uppercase tracking-wider flex items-center">
+                                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                            </svg>
+                                            Bestand Geselecteerd
+                                        </h4>
+                                        <p class="text-gray-300 mb-4" id="selected-file-info"></p>
+                                        <button type="button" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm transition-colors duration-300" onclick="clearOfferFile()">
+                                            <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/>
+                                            </svg>
+                                            Verwijderen
+                                        </button>
+                                    </div>
+                                </div>
 
-            <!-- Upload Form -->
-            <div id="uploadForm" style="display: none;">
-                <form method="POST" action="{{ route('service.store.step4') }}" enctype="multipart/form-data" id="uploadOfferForm">
-                    @csrf
-                    <input type="hidden" name="offer_type" value="upload">
-                    <input type="hidden" name="user_id" id="upload_user_id">
-                    <input type="hidden" name="car_id" id="upload_car_id">
-                    
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="mb-0">
-                                <i class="fas fa-upload me-2"></i>
-                                Upload Externe Offerte
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            
-                            <!-- Upload Area -->
-                            <div class="upload-area border-2 border-dashed rounded p-4 text-center @error('offer_file') border-danger @enderror" 
-                                 id="offer-upload-area" 
-                                 ondrop="handleOfferDrop(event)" 
-                                 ondragover="handleDragOver(event)" 
-                                 ondragleave="handleDragLeave(event)">
-                                <div class="upload-content">
-                                    <i class="fas fa-file-pdf fa-3x text-muted mb-3"></i>
-                                    <h6 class="text-muted">Sleep offerte bestand hierheen of klik om te selecteren</h6>
-                                    <p class="text-muted small mb-3">
-                                        Ondersteunde formaten: PDF, DOC, DOCX<br>
-                                        Maximale bestandsgrootte: 10MB
+                                <!-- Price Input for Upload -->
+                                <div class="mt-10">
+                                    <label for="upload_price" class="block text-lg font-bold text-white mb-4 uppercase tracking-wider">
+                                        <svg class="w-5 h-5 inline mr-2 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+                                        </svg>
+                                        Offerte Prijs
+                                        <span class="bg-red-600 text-white px-2 py-1 rounded text-xs ml-2">Verplicht</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">€</span>
+                                        <input type="number" 
+                                               class="w-full bg-gray-800 border border-gray-700 rounded-lg pl-8 pr-4 py-3 text-white placeholder-gray-400 focus:border-pblue focus:ring-pblue focus:ring-1 transition-colors duration-300 @error('upload_price') border-red-500 @enderror" 
+                                               id="upload_price" 
+                                               name="upload_price" 
+                                               step="0.01" 
+                                               min="0" 
+                                               placeholder="0.00"
+                                               onchange="validateUploadForm()">
+                                    </div>
+                                    <p class="text-gray-400 text-sm mt-2">
+                                        <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"/>
+                                        </svg>
+                                        Voer de totaalprijs van de geüploade offerte in
                                     </p>
-                                    <input type="file" 
-                                           class="form-control d-none @error('offer_file') is-invalid @enderror" 
-                                           id="offer_file" 
-                                           name="offer_file" 
-                                           accept=".pdf,.doc,.docx"
-                                           onchange="handleOfferFileSelect(event)">
-                                    <button type="button" class="btn btn-outline-info" onclick="document.getElementById('offer_file').click()">
-                                        <i class="fas fa-folder-open me-2"></i>
-                                        Selecteer Offerte Bestand
-                                    </button>
+                                    @error('upload_price')
+                                        <div class="text-red-400 text-sm mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            </div>
-                            
-                            <!-- File Preview -->
-                            <div id="offer-preview" class="mt-3" style="display: none;">
-                                <div class="alert alert-success">
-                                    <h6 class="alert-heading">
-                                        <i class="fas fa-check-circle me-2"></i>
-                                        Bestand Geselecteerd
-                                    </h6>
-                                    <p class="mb-2" id="selected-file-info"></p>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearOfferFile()">
-                                        <i class="fas fa-trash me-1"></i>
-                                        Verwijderen
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Price Input for Upload -->
-                            <div class="mt-4">
-                                <label for="upload_price" class="form-label fw-bold">
-                                    <i class="fas fa-euro-sign me-2 text-success"></i>
-                                    Offerte Prijs
-                                    <span class="badge bg-danger ms-2">Verplicht</span>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text">€</span>
-                                    <input type="number" 
-                                           class="form-control @error('upload_price') is-invalid @enderror" 
-                                           id="upload_price" 
-                                           name="upload_price" 
-                                           step="0.01" 
-                                           min="0" 
-                                           placeholder="0.00"
-                                           onchange="validateUploadForm()">
-                                </div>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Voer de totaalprijs van de geüploade offerte in
-                                </div>
-                                @error('upload_price')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                
+                                @error('offer_file')
+                                    <div class="text-red-400 text-sm mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
                             
-                            @error('offer_file')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <!-- Upload Form Footer -->
-                        <div class="card-footer bg-light">
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('service.create.step3') }}" class="btn btn-outline-secondary">
-                                    <i class="fas fa-arrow-left me-2"></i>
-                                    Vorige Stap
-                                </a>
-                                <button type="submit" id="uploadNextStepBtn" class="btn btn-primary" disabled>
-                                    Volgende Stap
-                                    <i class="fas fa-arrow-right ms-2"></i>
-                                </button>
+                            <!-- Upload Form Footer -->
+                            <div class="bg-gray-800/50 border-t border-gray-700 p-6">
+                                <div class="flex justify-between">
+                                    <a href="{{ route('service.create.step3') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300">
+                                        <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                                        </svg>
+                                        Vorige Stap
+                                    </a>
+                                    <button type="submit" id="uploadNextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" disabled>
+                                        Volgende Stap
+                                        <svg class="w-4 h-4 inline ml-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
 
-        </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Add FontAwesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        .option-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .option-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
         .option-card.selected {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+            border-color: #00d4ff !important;
+            box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
+            background-color: rgba(55, 65, 81, 0.8) !important;
         }
         
         .item-row {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
+            background: #374151;
+            border: 1px solid #4b5563;
             border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
         }
         
         .remove-item {
-            background: #dc3545;
+            background: #dc2626;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-        }
-        
-        .upload-area {
+            font-size: 18px;
+            font-weight: bold;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
         
-        .upload-area:hover {
-            background-color: #f8f9fa;
-            border-color: #007bff !important;
+        .remove-item:hover {
+            background: #991b1b;
+            transform: scale(1.1);
         }
         
         .upload-area.drag-over {
-            background-color: #e3f2fd;
-            border-color: #2196f3 !important;
+            background-color: rgba(59, 130, 246, 0.1) !important;
+            border-color: #3b82f6 !important;
+        }
+        
+        /* Custom toggle switch styles */
+        #vatToggle:checked + label .w-12 {
+            background-color: #00d4ff;
+        }
+        
+        #vatToggle:checked + label .absolute {
+            transform: translateX(24px);
+        }
+        
+        /* Form inputs styling */
+        .item-input {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 6px;
+            padding: 12px 12px 12px 12px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        /* Special padding for price inputs with euro sign */
+        .item-input.pl-8 {
+            padding-left: 2.75rem !important; /* Increase left padding for euro sign */
+        }
+        
+        .item-input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 1px #00d4ff;
+            outline: none;
+        }
+        
+        .item-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        /* Disabled button styling */
+        button:disabled {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
         }
     </style>
 
@@ -384,11 +458,14 @@
                 sessionStorage.setItem('case_media', JSON.stringify(uploadedMedia));
             @endif
 
-            // Display progress summary
-            document.getElementById('selected-user-display').innerHTML = `<strong>Gebruiker ID:</strong> ${userId}`;
-            document.getElementById('selected-car-display').innerHTML = `<strong>Voertuig ID:</strong> ${carId}`;
-            document.getElementById('description-status').innerHTML = `<span class="text-success"><i class="fas fa-check me-1"></i>Probleem beschrijving opgeslagen</span>`;
-            document.getElementById('media-status').innerHTML = `<span class="text-success"><i class="fas fa-check me-1"></i>Media upload voltooid</span>`;
+            // Display step 1 summary with names instead of IDs
+            const userName = sessionStorage.getItem('case_user_name');
+            const carInfo = sessionStorage.getItem('case_car_info');
+            const displayUserName = userName || `Gebruiker ID: ${userId}`;
+            const displayCarInfo = carInfo || `Voertuig ID: ${carId}`;
+            
+            document.getElementById('selected-user-display').innerHTML = `<strong>Gebruiker:</strong> ${displayUserName}`;
+            document.getElementById('selected-car-display').innerHTML = `<strong>Voertuig:</strong> ${displayCarInfo}`;
             
             // Populate hidden inputs
             document.getElementById('manual_user_id').value = userId;
@@ -419,8 +496,17 @@
             if (option === 'manual') {
                 document.getElementById('manualOption').classList.add('selected');
                 document.getElementById('manualForm').style.display = 'block';
-                addItem('parts'); // Add initial part row
-                addItem('labour'); // Add initial labour row
+                
+                // Only add initial rows if containers are empty
+                const partsContainer = document.getElementById('parts-container');
+                const labourContainer = document.getElementById('labour-container');
+                
+                if (partsContainer.children.length === 0) {
+                    addItem('parts'); // Add initial part row
+                }
+                if (labourContainer.children.length === 0) {
+                    addItem('labour'); // Add initial labour row
+                }
             } else if (option === 'upload') {
                 document.getElementById('uploadOption').classList.add('selected');
                 document.getElementById('uploadForm').style.display = 'block';
@@ -454,56 +540,55 @@
         function addItem(type) {
             itemCounter++;
             const container = document.getElementById(type + '-container');
-            const icon = type === 'parts' ? 'puzzle-piece' : 'tools';
-            const color = type === 'parts' ? 'warning' : 'info';
+            const iconPath = type === 'parts' 
+                ? 'M3,3H9L12,9L9,15H3V3M5,5V7H7V5H5M5,9V11H7V9H5M5,13V15H7V13H5M11,3H17L20,9L17,15H11L14,9L11,3M13,5V7H15V5H13M13,9V11H15V9H13M13,13V15H15V13H13Z'
+                : 'M21.71,9.29L16.5,4.08C16.1,3.68 15.55,3.47 15,3.47H9A4,4 0 0,0 5,7.47V16.53A4,4 0 0,0 9,20.53H15C15.55,20.53 16.1,20.32 16.5,19.92L21.71,14.71C22.1,14.32 22.1,13.68 21.71,13.29L21.71,9.29M9,5.47H15L20,10.47L15,15.47H9A2,2 0 0,1 7,13.47V7.47A2,2 0 0,1 9,5.47M10,7.47V9.47H12V11.47H10V13.47H8V11.47H6V9.47H8V7.47H10Z';
             const placeholder = type === 'parts' ? 'Onderdeel naam...' : 'Arbeid beschrijving...';
             
             const itemHtml = `
                 <div class="item-row" id="${type}-${itemCounter}">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                            <label class="form-label">
-                                <i class="fas fa-${icon} me-1 text-${color}"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-6 items-end">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-chiffon" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="${iconPath}"/>
+                                </svg>
                                 ${type === 'parts' ? 'Onderdeel' : 'Arbeid'}
                             </label>
                             <input type="text" 
-                                   class="form-control" 
+                                   class="item-input w-full" 
                                    name="${type}[${itemCounter}][name]" 
-                                   placeholder="${placeholder}" 
-                                   required>
+                                   placeholder="${placeholder}">
                         </div>
-                        <div class="col-md-2">
-                            <label class="form-label">Aantal</label>
+                        <div>
+                            <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider">Aantal</label>
                             <input type="number" 
-                                   class="form-control quantity-input" 
+                                   class="item-input w-full quantity-input" 
                                    name="${type}[${itemCounter}][quantity]" 
                                    value="1" 
                                    min="1" 
                                    step="1"
-                                   onchange="calculateTotal()" 
-                                   required>
+                                   onchange="calculateTotal()">
                         </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Prijs per eenheid</label>
-                            <div class="input-group">
-                                <span class="input-group-text">€</span>
+                        <div>
+                            <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider">Prijs per eenheid</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">€</span>
                                 <input type="number" 
-                                       class="form-control price-input" 
+                                       class="item-input w-full pl-8 price-input" 
                                        name="${type}[${itemCounter}][price]" 
                                        step="0.01" 
                                        min="0" 
                                        placeholder="0.00"
-                                       onchange="calculateTotal()" 
-                                       required>
+                                       onchange="calculateTotal()">
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <label class="form-label">Totaal</label>
-                            <div class="fw-bold text-success" id="item-total-${itemCounter}">€0.00</div>
+                        <div>
+                            <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider">Totaal</label>
+                            <div class="text-lg font-bold text-green-400" id="item-total-${itemCounter}">€0.00</div>
                         </div>
-                        <div class="col-md-1">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="button" class="remove-item d-block" onclick="removeItem('${type}-${itemCounter}')">
+                        <div class="flex justify-center">
+                            <button type="button" class="remove-item" onclick="removeItem('${type}-${itemCounter}')">
                                 ×
                             </button>
                         </div>
@@ -561,8 +646,21 @@
 
         // Validate manual form
         function validateManualForm() {
-            const itemRows = document.querySelectorAll('.item-row');
-            const hasValidItems = Array.from(itemRows).some(row => {
+            // Check if there's at least one valid part
+            const partRows = document.querySelectorAll('#parts-container .item-row');
+            const hasValidParts = Array.from(partRows).some(row => {
+                const nameInput = row.querySelector('input[name*="[name]"]');
+                const quantityInput = row.querySelector('.quantity-input');
+                const priceInput = row.querySelector('.price-input');
+                
+                return nameInput && nameInput.value.trim() && 
+                       quantityInput && quantityInput.value && 
+                       priceInput && priceInput.value;
+            });
+
+            // Check if there's at least one valid labour item
+            const labourRows = document.querySelectorAll('#labour-container .item-row');
+            const hasValidLabour = Array.from(labourRows).some(row => {
                 const nameInput = row.querySelector('input[name*="[name]"]');
                 const quantityInput = row.querySelector('.quantity-input');
                 const priceInput = row.querySelector('.price-input');
@@ -572,7 +670,9 @@
                        priceInput && priceInput.value;
             });
             
-            document.getElementById('nextStepBtn').disabled = !hasValidItems;
+            // Enable button if there's at least one valid part OR one valid labour item
+            const hasAtLeastOneValidItem = hasValidParts || hasValidLabour;
+            document.getElementById('nextStepBtn').disabled = !hasAtLeastOneValidItem;
         }
 
         // Reset form
@@ -656,11 +756,6 @@
 
         // Form submission listeners
         document.getElementById('step4Form').addEventListener('submit', function(e) {
-            if (document.querySelectorAll('.item-row').length === 0) {
-                e.preventDefault();
-                alert('Voeg minimaal één onderdeel of arbeid toe.');
-                return;
-            }
 
             // Store offer items data for step 5 preview
             const offerItems = [];
@@ -734,6 +829,8 @@
             
             sessionStorage.setItem('case_offer_data', JSON.stringify(offerData));
         });
+
+
 
         // Add event listeners to form inputs
         document.addEventListener('input', function(e) {
