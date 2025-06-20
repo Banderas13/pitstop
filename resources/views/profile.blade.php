@@ -296,27 +296,38 @@
                     </div>
                 @endif
 
-                    <!-- Delete Account Section -->
-                    <div class="mt-5 pt-4 border-top">
-                        <h5 class="text-danger mb-3">Account Verwijderen</h5>
-                        <p class="text-muted mb-3">Let op: Het verwijderen van je account is permanent en kan niet ongedaan worden gemaakt.</p>
-                        
-                        <form method="POST" action="{{ route('profile.delete') }}" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.');">
-                            @csrf
-                            @method('DELETE')
-                            
-                            <div class="mb-3">
-                                <label class="form-label">Bevestig je wachtwoord</label>
-                                <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
-                                       name="current_password" required>
-                                @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                        <!-- Delete Account Section -->
+                        <div class="bg-gray-900/30 border border-gray-800 p-8 rounded-lg mt-8">
+                            <div class="text-center mb-8">
+                                <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">ACCOUNT VERWIJDEREN</h2>
                             </div>
+                            
+                            <div class="text-center mb-8">
+                                <p class="text-red-600 text-lg">Let op: Het verwijderen van je account is permanent en kan niet ongedaan worden gemaakt.</p>
+                            </div>
+                            
+                            <form method="POST" action="{{ route('profile.delete') }}" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.');">
+                                @csrf
+                                @method('DELETE')
+                                
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Bevestig je wachtwoord</label>
+                                        <input type="password" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-pblue focus:ring-1 focus:ring-pblue transition-colors duration-300 @error('current_password') border-red-500 @enderror" 
+                                               name="current_password" required>
+                                        @error('current_password')
+                                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                            <button type="submit" class="btn btn-danger">Account Verwijderen</button>
-                        </form>
-                    </div>
+                                <div class="text-center mt-8">
+                                    <button type="submit" class="inline-block bg-pblue text-black px-8 py-3 font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors duration-300 rounded">
+                                        Account Verwijderen
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
             </div>
         </section>
     </div>
