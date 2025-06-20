@@ -61,8 +61,8 @@
                             <div class="flex items-center">
                                 <input class="sr-only" type="checkbox" id="vatToggle" checked>
                                 <label for="vatToggle" class="relative flex items-center cursor-pointer">
-                                    <div class="w-12 h-6 bg-gray-600 rounded-full shadow-inner transition-all duration-300"></div>
-                                    <div class="absolute w-4 h-4 bg-white rounded-full shadow transition-all duration-300 left-1"></div>
+                                    <div class="w-12 h-6 bg-pblue rounded-full shadow-inner transition-all duration-300" id="toggleBg"></div>
+                                    <div class="absolute w-4 h-4 bg-white rounded-full shadow transition-all duration-300 translate-x-6" id="toggleButton"></div>
                                 </label>
                                 <span class="ml-3 text-white font-bold uppercase tracking-wider text-sm" id="vatLabel">
                                     Prijzen Exclusief BTW
@@ -84,7 +84,7 @@
                     </div>
                     <div class="p-10">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="option-card bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="manualOption">
+                            <div class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="manualOption">
                                 <div class="p-8 text-center">
                                     <svg class="w-16 h-16 mx-auto text-pblue mb-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
@@ -96,7 +96,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="option-card bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="uploadOption">
+                            <div class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-700/50" id="uploadOption">
                                 <div class="p-8 text-center">
                                     <svg class="w-16 h-16 mx-auto text-pblue mb-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
@@ -215,7 +215,7 @@
                                         <button type="button" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" onclick="resetForm()">
                                             Reset
                                         </button>
-                                        <button type="submit" id="nextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" disabled>
+                                        <button type="submit" id="nextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none" disabled>
                                             Offerte Genereren
                                             <svg class="w-4 h-4 inline ml-2" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
@@ -247,12 +247,12 @@
                             </div>
                             <div class="p-10">
                                 
-                                <!-- Upload Area -->
-                                <div class="upload-area border-2 border-dashed border-gray-600 rounded-lg p-10 text-center @error('offer_file') border-red-500 @enderror cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-800/30" 
-                                     id="offer-upload-area" 
-                                     ondrop="handleOfferDrop(event)" 
-                                     ondragover="handleDragOver(event)" 
-                                     ondragleave="handleDragLeave(event)">
+                                                <!-- Upload Area -->
+                <div class="border-2 border-dashed border-gray-600 rounded-lg p-10 text-center @error('offer_file') border-red-500 @enderror cursor-pointer transition-all duration-300 hover:border-pblue hover:bg-gray-800/30" 
+                     id="offer-upload-area" 
+                     ondrop="handleOfferDrop(event)" 
+                     ondragover="handleDragOver(event)" 
+                     ondragleave="handleDragLeave(event)">
                                     <div class="upload-content">
                                         <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
@@ -341,7 +341,7 @@
                                         </svg>
                                         Vorige Stap
                                     </a>
-                                    <button type="submit" id="uploadNextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300" disabled>
+                                    <button type="submit" id="uploadNextStepBtn" class="bg-pblue hover:bg-white text-black px-6 py-3 rounded font-medium uppercase tracking-wider text-sm transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none" disabled>
                                         Volgende Stap
                                         <svg class="w-4 h-4 inline ml-2" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
@@ -357,88 +357,7 @@
         </section>
     </div>
 
-    <style>
-        .option-card.selected {
-            border-color: #00d4ff !important;
-            box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
-            background-color: rgba(55, 65, 81, 0.8) !important;
-        }
-        
-        .item-row {
-            background: #374151;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-        
-        .remove-item {
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .remove-item:hover {
-            background: #991b1b;
-            transform: scale(1.1);
-        }
-        
-        .upload-area.drag-over {
-            background-color: rgba(59, 130, 246, 0.1) !important;
-            border-color: #3b82f6 !important;
-        }
-        
-        /* Custom toggle switch styles */
-        #vatToggle:checked + label .w-12 {
-            background-color: #00d4ff;
-        }
-        
-        #vatToggle:checked + label .absolute {
-            transform: translateX(24px);
-        }
-        
-        /* Form inputs styling */
-        .item-input {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 6px;
-            padding: 12px 12px 12px 12px;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        /* Special padding for price inputs with euro sign */
-        .item-input.pl-8 {
-            padding-left: 2.75rem !important; /* Increase left padding for euro sign */
-        }
-        
-        .item-input:focus {
-            border-color: #00d4ff;
-            box-shadow: 0 0 0 1px #00d4ff;
-            outline: none;
-        }
-        
-        .item-input::placeholder {
-            color: #9ca3af;
-        }
-        
-        /* Disabled button styling */
-        button:disabled {
-            opacity: 0.5 !important;
-            cursor: not-allowed !important;
-            pointer-events: none !important;
-        }
-    </style>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -485,8 +404,9 @@
             currentOption = option;
             
             // Reset selection visuals
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
+            document.querySelectorAll('#manualOption, #uploadOption').forEach(card => {
+                card.classList.remove('border-pblue', 'shadow-lg', 'shadow-pblue/25', 'bg-gray-700/80');
+                card.classList.add('border-gray-700');
             });
             
             // Hide all forms
@@ -494,7 +414,9 @@
             document.getElementById('uploadForm').style.display = 'none';
             
             if (option === 'manual') {
-                document.getElementById('manualOption').classList.add('selected');
+                const manualOption = document.getElementById('manualOption');
+                manualOption.classList.remove('border-gray-700');
+                manualOption.classList.add('border-pblue', 'shadow-lg', 'shadow-pblue/25', 'bg-gray-700/80');
                 document.getElementById('manualForm').style.display = 'block';
                 
                 // Only add initial rows if containers are empty
@@ -508,7 +430,9 @@
                     addItem('labour'); // Add initial labour row
                 }
             } else if (option === 'upload') {
-                document.getElementById('uploadOption').classList.add('selected');
+                const uploadOption = document.getElementById('uploadOption');
+                uploadOption.classList.remove('border-gray-700');
+                uploadOption.classList.add('border-pblue', 'shadow-lg', 'shadow-pblue/25', 'bg-gray-700/80');
                 document.getElementById('uploadForm').style.display = 'block';
             }
         }
@@ -519,15 +443,25 @@
             const label = document.getElementById('vatLabel');
             const vatSection = document.getElementById('vatSection');
             const vatAmount = document.getElementById('vatAmount');
+            const toggleBg = document.getElementById('toggleBg');
+            const toggleButton = document.getElementById('toggleButton');
             
             if (vatEnabled) {
                 label.textContent = 'Prijzen Exclusief BTW';
                 vatSection.style.display = 'block';
                 vatAmount.style.display = 'block';
+                toggleBg.classList.remove('bg-gray-600');
+                toggleBg.classList.add('bg-pblue');
+                toggleButton.classList.remove('translate-x-1');
+                toggleButton.classList.add('translate-x-6');
             } else {
                 label.textContent = 'Prijzen Inclusief BTW';
                 vatSection.style.display = 'none';
                 vatAmount.style.display = 'none';
+                toggleBg.classList.remove('bg-pblue');
+                toggleBg.classList.add('bg-gray-600');
+                toggleButton.classList.remove('translate-x-6');
+                toggleButton.classList.add('translate-x-1');
             }
             
             // Update hidden input
@@ -546,7 +480,7 @@
             const placeholder = type === 'parts' ? 'Onderdeel naam...' : 'Arbeid beschrijving...';
             
             const itemHtml = `
-                <div class="item-row" id="${type}-${itemCounter}">
+                <div class="bg-gray-700 border border-gray-600 rounded-lg p-5 mb-4" id="${type}-${itemCounter}">
                     <div class="grid grid-cols-1 md:grid-cols-6 gap-6 items-end">
                         <div class="md:col-span-2">
                             <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider flex items-center">
@@ -556,14 +490,14 @@
                                 ${type === 'parts' ? 'Onderdeel' : 'Arbeid'}
                             </label>
                             <input type="text" 
-                                   class="item-input w-full" 
+                                   class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-3 text-white placeholder-gray-400 focus:border-pblue focus:ring-pblue focus:ring-1 transition-colors duration-300" 
                                    name="${type}[${itemCounter}][name]" 
                                    placeholder="${placeholder}">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-white mb-2 uppercase tracking-wider">Aantal</label>
                             <input type="number" 
-                                   class="item-input w-full quantity-input" 
+                                   class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-3 text-white placeholder-gray-400 focus:border-pblue focus:ring-pblue focus:ring-1 transition-colors duration-300 quantity-input" 
                                    name="${type}[${itemCounter}][quantity]" 
                                    value="1" 
                                    min="1" 
@@ -575,7 +509,7 @@
                             <div class="relative">
                                 <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">€</span>
                                 <input type="number" 
-                                       class="item-input w-full pl-8 price-input" 
+                                       class="w-full bg-gray-800 border border-gray-600 rounded-md pl-11 pr-3 py-3 text-white placeholder-gray-400 focus:border-pblue focus:ring-pblue focus:ring-1 transition-colors duration-300 price-input" 
                                        name="${type}[${itemCounter}][price]" 
                                        step="0.01" 
                                        min="0" 
@@ -588,7 +522,7 @@
                             <div class="text-lg font-bold text-green-400" id="item-total-${itemCounter}">€0.00</div>
                         </div>
                         <div class="flex justify-center">
-                            <button type="button" class="remove-item" onclick="removeItem('${type}-${itemCounter}')">
+                            <button type="button" class="bg-red-600 text-white border-0 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer text-lg font-bold transition-all duration-300 hover:bg-red-800 hover:scale-110" onclick="removeItem('${type}-${itemCounter}')">
                                 ×
                             </button>
                         </div>
@@ -612,7 +546,7 @@
             let subtotal = 0;
             
             // Calculate all item totals
-            document.querySelectorAll('.item-row').forEach(row => {
+            document.querySelectorAll('#parts-container > div, #labour-container > div').forEach(row => {
                 const quantityInput = row.querySelector('.quantity-input');
                 const priceInput = row.querySelector('.price-input');
                 const totalElement = row.querySelector('[id^="item-total-"]');
@@ -647,7 +581,7 @@
         // Validate manual form
         function validateManualForm() {
             // Check if there's at least one valid part
-            const partRows = document.querySelectorAll('#parts-container .item-row');
+            const partRows = document.querySelectorAll('#parts-container > div');
             const hasValidParts = Array.from(partRows).some(row => {
                 const nameInput = row.querySelector('input[name*="[name]"]');
                 const quantityInput = row.querySelector('.quantity-input');
@@ -659,7 +593,7 @@
             });
 
             // Check if there's at least one valid labour item
-            const labourRows = document.querySelectorAll('#labour-container .item-row');
+            const labourRows = document.querySelectorAll('#labour-container > div');
             const hasValidLabour = Array.from(labourRows).some(row => {
                 const nameInput = row.querySelector('input[name*="[name]"]');
                 const quantityInput = row.querySelector('.quantity-input');
@@ -688,17 +622,20 @@
         // Upload form functions
         function handleDragOver(e) {
             e.preventDefault();
-            e.currentTarget.classList.add('drag-over');
+            e.currentTarget.classList.add('bg-blue-900/10', 'border-blue-500');
+            e.currentTarget.classList.remove('border-gray-600');
         }
 
         function handleDragLeave(e) {
             e.preventDefault();
-            e.currentTarget.classList.remove('drag-over');
+            e.currentTarget.classList.remove('bg-blue-900/10', 'border-blue-500');
+            e.currentTarget.classList.add('border-gray-600');
         }
 
         function handleOfferDrop(e) {
             e.preventDefault();
-            e.currentTarget.classList.remove('drag-over');
+            e.currentTarget.classList.remove('bg-blue-900/10', 'border-blue-500');
+            e.currentTarget.classList.add('border-gray-600');
             
             const files = Array.from(e.dataTransfer.files);
             if (files.length > 0) {
@@ -761,7 +698,7 @@
             const offerItems = [];
             let subtotal = 0;
 
-            document.querySelectorAll('.item-row').forEach(row => {
+            document.querySelectorAll('#parts-container > div, #labour-container > div').forEach(row => {
                 const nameInput = row.querySelector('input[name*="[name]"]');
                 const quantityInput = row.querySelector('.quantity-input');
                 const priceInput = row.querySelector('.price-input');
