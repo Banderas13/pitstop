@@ -22,7 +22,7 @@
 
         <!-- Profile Forms Section -->
         <section class="pb-32">
-            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
                 <!-- Success Message -->
                 @if(session('success'))
                     <div class="bg-green-900/50 border border-green-800 text-green-200 px-6 py-4 mb-8 rounded-lg">
