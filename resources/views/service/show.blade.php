@@ -77,19 +77,61 @@
                 <div class="lg:col-span-2 space-y-12">
                     <!-- Case Description -->
                     <div class="group">
-                        <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                            <div class="border-l-4 border-pblue px-10 py-8">
+                        <div class=" ">
+                            <div class="px-10 py-8">
                                 <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                     Case Beschrijving
                                 </h2>
                             </div>
-                            <div class="px-10 py-8">
-                                <div class="text-gray-300 text-lg">
-                                    @php
+                            <div class="border-l-4 border-pblue px-10 py-8">
+                                @php
+                                    // Parse customer description and mechanic diagnosis
+                                    $customerDescription = '';
+                                    $mechanicDiagnosis = '';
+                                    
+                                    if (strpos($case->description, 'KLANT BESCHRIJVING ===') !== false && strpos($case->description, '=== MECHANIEK DIAGNOSE') !== false) {
+                                        // Split by customer description marker
+                                        $customerParts = explode('KLANT BESCHRIJVING ===', $case->description);
+                                        if (count($customerParts) > 1) {
+                                            // Split the second part by mechanic diagnosis marker
+                                            $mechanicParts = explode('=== MECHANIEK DIAGNOSE', $customerParts[1]);
+                                            $customerDescription = trim($mechanicParts[0]);
+                                            $mechanicDiagnosis = count($mechanicParts) > 1 ? trim($mechanicParts[1]) : '';
+                                        }
+                                    } elseif (strpos($case->description, 'MECHANIEK DIAGNOSE ===') !== false) {
+                                        // Only mechanic diagnosis exists
                                         $parts = explode('MECHANIEK DIAGNOSE ===', $case->description);
-                                        $diagnosis = count($parts) > 1 ? trim($parts[1]) : $case->description;
-                                    @endphp
-                                    {!! nl2br(e($diagnosis)) !!}
+                                        $mechanicDiagnosis = count($parts) > 1 ? trim($parts[1]) : '';
+                                    } else {
+                                        // Fallback to showing the entire description as mechanic diagnosis
+                                        $mechanicDiagnosis = $case->description;
+                                    }
+                                    
+                                    // Clean up any remaining === markers from both descriptions
+                                    $customerDescription = preg_replace('/={3,}/', '', $customerDescription);
+                                    $mechanicDiagnosis = preg_replace('/={3,}/', '', $mechanicDiagnosis);
+                                    
+                                    // Trim again after cleanup
+                                    $customerDescription = trim($customerDescription);
+                                    $mechanicDiagnosis = trim($mechanicDiagnosis);
+                                @endphp
+                                
+                                <!-- Customer Description (optional) -->
+                                @if(!empty($customerDescription))
+                                    <div class="mb-8">
+                                        <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider">Klant beschrijving:</h3>
+                                        <div class="text-gray-300 text-lg">
+                                            {!! nl2br(e($customerDescription)) !!}
+                                        </div>
+                                    </div>
+                                @endif
+                                
+                                <!-- Mechanic Diagnosis -->
+                                <div>
+                                    <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider">Diagnose van de mechanieker:</h3>
+                                    <div class="text-gray-300 text-lg">
+                                        {!! nl2br(e($mechanicDiagnosis)) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -98,14 +140,14 @@
                     <!-- Media Files -->
                     @if($case->media->count() > 0)
                         <div class="group">
-                            <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                                <div class="border-l-4 border-caribbean px-10 py-8">
+                            <div class="">
+                                <div class="px-10 py-8">
                                     <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                         Bijgevoegde Media
                                         <span class="text-caribbean font-light ml-4">({{ $case->media->count() }})</span>
                                     </h2>
                                 </div>
-                                <div class="px-10 py-8">
+                                <div class="border-l-4 border-caribbean px-10 py-8">
                                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                                         @foreach($case->media as $media)
                                             <div class="group/media">
@@ -119,26 +161,10 @@
                                                     <div class="text-center">
                                                         <div class="overflow-hidden bg-gray-800 border border-gray-700 group-hover/media:border-pblue transition-all duration-300 rounded-lg">
                                                             <img src="{{ asset('storage/' . $media->path) }}" 
-                                                                 class="w-full h-48 object-cover cursor-pointer transform group-hover/media:scale-105 transition-transform duration-300"
-                                                                 data-bs-toggle="modal"
-                                                                 data-bs-target="#mediaModal{{ $media->id }}">
+                                                                 class="w-full h-48 object-cover cursor-pointer transform group-hover/media:scale-105 transition-transform duration-300 image-preview"
+                                                                 onclick="openImageOverlay('{{ asset('storage/' . $media->path) }}')">
                                                         </div>
                                                         <p class="text-sm text-gray-400 mt-4 uppercase tracking-wider font-medium">Foto</p>
-                                                    </div>
-                                                    
-                                                    <!-- Modal for image preview -->
-                                                    <div class="modal fade" id="mediaModal{{ $media->id }}" tabindex="-1">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Foto Preview</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                </div>
-                                                                <div class="modal-body text-center">
-                                                                    <img src="{{ asset('storage/' . $media->path) }}" class="img-fluid">
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 @elseif($isVideo)
                                                     <div class="text-center">
@@ -178,13 +204,13 @@
                     <!-- Offer Information -->
                     @if($case->offer)
                         <div class="group">
-                            <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                                <div class="border-l-4 border-green-500 px-10 py-8">
+                            <div class="">
+                                <div class="px-10 py-8">
                                     <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                         Offerte
                                     </h2>
                                 </div>
-                                <div class="px-10 py-8">
+                                <div class="border-l-4 border-green-500 px-10 py-8">
                                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8">
                                         <div>
                                             <div class="text-4xl font-black text-green-400 mb-3">€{{ number_format($case->offer->price, 2) }}</div>
@@ -211,13 +237,13 @@
                 <div class="space-y-12">
                     <!-- Customer Information -->
                     <div class="group">
-                        <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                            <div class="border-l-4 border-chiffon px-10 py-8">
+                        <div class="">
+                            <div class="px-10 py-8">
                                 <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                     Klantgegevens
                                 </h2>
                             </div>
-                            <div class="px-10 py-8 space-y-8">
+                            <div class="border-l-4 border-chiffon px-10 py-8 space-y-8">
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-medium">Naam</p>
                                     <p class="text-white text-xl font-medium">{{ $case->user->name }}</p>
@@ -250,13 +276,13 @@
 
                     <!-- Vehicle Information -->
                     <div class="group">
-                        <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                            <div class="border-l-4 border-midnight px-10 py-8">
+                        <div class="">
+                            <div class="px-10 py-8">
                                 <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                     Voertuiggegevens
                                 </h2>
                             </div>
-                            <div class="px-10 py-8 space-y-8">
+                            <div class="border-l-4 border-midnight px-10 py-8 space-y-8">
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-medium">Merk & Model</p>
                                     <p class="text-white text-xl font-medium">{{ $case->car->type->brand->name }} {{ $case->car->type->name }}</p>
@@ -285,13 +311,13 @@
 
                     <!-- Case Timeline -->
                     <div class="group">
-                        <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
-                            <div class="border-l-4 border-gray-600 px-10 py-8">
+                        <div class="">
+                            <div class="px-10 py-8">
                                 <h2 class="text-2xl font-bold uppercase tracking-wider text-white">
                                     Tijdlijn
                                 </h2>
                             </div>
-                            <div class="px-10 py-8">
+                            <div class="border-l-4 border-gray-600 px-10 py-8">
                                 <div class="space-y-8">
                                     <div class="flex items-start group/timeline">
                                         <div class="w-4 h-4 bg-pblue rounded-full mr-6 mt-2 flex-shrink-0 group-hover/timeline:scale-125 transition-transform duration-300"></div>
@@ -328,7 +354,7 @@
             <!-- PDF Viewer Container (Full Width - Underneath Both Columns) -->
             @if($case->offer)
                 <div id="pdfContainer" class="hidden group mt-16">
-                    <div class="bg-gray-900/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300 rounded-lg">
+                    <div class="">
                         <div class="border-l-4 border-caribbean px-10 py-8">
                             <div class="flex justify-between items-center">
                                 <h2 class="text-2xl font-bold uppercase tracking-wider text-white">PDF Voorvertoning</h2>
@@ -358,7 +384,47 @@
         </div>
     </div>
 
+    <!-- Image Overlay -->
+    <div id="imageOverlay" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden flex items-center justify-center" onclick="closeImageOverlay()">
+        <div class="relative max-w-screen-lg max-h-screen-lg p-8">
+            <!-- Close button -->
+            <button onclick="closeImageOverlay()" class="absolute -top-4 -right-4 z-10 bg-white text-black rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-200 transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <!-- Image container -->
+            <img id="overlayImage" src="" alt="Preview" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+        </div>
+    </div>
 
+    <script>
+        // Image overlay functions
+        function openImageOverlay(imageSrc) {
+            const overlay = document.getElementById('imageOverlay');
+            const overlayImage = document.getElementById('overlayImage');
+            
+            overlayImage.src = imageSrc;
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeImageOverlay() {
+            const overlay = document.getElementById('imageOverlay');
+            const overlayImage = document.getElementById('overlayImage');
+            
+            overlay.classList.add('hidden');
+            overlayImage.src = '';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close overlay on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageOverlay();
+            }
+        });
+    </script>
 
     @if($case->offer)
     <script>
